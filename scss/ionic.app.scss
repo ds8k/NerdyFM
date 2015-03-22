@@ -1,0 +1,194 @@
+/*
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+
+@import "www/lib/ionic/scss/ionic";
+
+@font-face {
+    font-family: "nisesega";
+    src: url(../fonts/NiseSega.ttf);
+}
+
+@font-face {
+    font-family: "niseenduroracer";
+    src: url(../fonts/NiseEnduroRacer.TTF);
+}
+
+.bar-header {
+    box-shadow: 3px 0px 7px 0px #333;
+}
+
+.bar-footer {
+    height: 100px;
+    box-shadow: 0px -7px 7px -1px #333;
+    border-top: 0px !important;
+}
+
+.bar-subfooter {
+    height: 120px !important;
+    background-color: rgba(71, 71, 71, 0.7) !important;
+    box-shadow: 0px -7px 7px -7px #333;
+    border-top: 0px !important;
+}
+
+.bar.bar-dark.bar-footer {
+	background-image: linear-gradient(180deg, #444444, #444444 50%, transparent 50%) !important;
+}
+
+.background {
+    background: url(../img/bg.png);
+    background-repeat: no-repeat;
+    background-size: 100% auto !important;
+}
+
+.cc_streaminfo a {
+    color: silver;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+.cc_streaminfo {
+	width: 100%;
+	text-align: center;
+	line-height: 18px;
+	font-size: 13px;
+}
+
+button {
+    position: relative;
+    display: inline-block;
+    padding: .6em;
+    background: linear-gradient(#fff, #ccc), #c9c5c9;
+    border-radius: 10em;
+    border: 0 solid rgba(208, 208, 208, 1.000);
+    width: 6em;
+    height: 6em;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 (6em * .06) (6em * .07) rgba(0, 0, 0, .4);
+}
+
+button:before, button:after {
+    position: absolute;
+    content: " ";
+}
+
+button:active {
+    top: (6em * .05);
+    box-shadow: 0 (6em * .02) (6em * .03) rgba(0, 0, 0, .4);
+}
+
+.play:before {
+    z-index: 2;
+    top: 6em * .22;
+    left: 6em * .36;
+    width: 0;
+    height: 0;
+    border: 6em * .3 solid transparent;
+    border-left-color: rgba(100, 100, 100, .8);
+    border-left-width: (6em * .45);
+}
+
+.pause:before, .pause:after {
+    height: (6em * .47);
+    width: (6em * .19);
+    left: (6em * .29);
+    top: (6em * .28);
+    display: block;
+    background-color: rgba(100, 100, 100, .8);
+    ;
+}
+
+.pause:after {
+    left: (6em * .54);
+}
+
+.nerdy {
+    position: absolute;
+    top: 1em;
+    left: 0.3em;
+    font-family: nisesega, sans-serif;
+    line-height: 50%;
+}
+
+.fm {
+    position: absolute;
+    top: 1.5em;
+    left: 3.5em;
+    font-family: niseenduroracer, sans-serif;
+    line-height: 30%;
+}
+
+h1 {
+    font-size: 20vw;
+    text-align: left;
+    text-shadow: 3px 3px 5px #7b7fbe, -3px -3px 5px #7b7fbe;
+    z-index: 100;
+    overflow: hidden;
+    color: white;
+}
+
+.ruletop {
+    position: absolute;
+    top: 7vw;
+    left: 0px;
+    width: 60%;
+    height: 2px;
+    border: 0px;
+    background-color: red;
+    box-shadow: 1px 1px 2px red, -1px -1px 2px red;
+    z-index: 200;
+}
+
+.rulebtm {
+    position: absolute;
+    top: 45vw;
+    right: 0px;
+    width: 60%;
+    height: 2px;
+    border: 0px;
+    background-color: red;
+    box-shadow: 1px 1px 2px red, -1px -1px 2px red;
+    z-index: 200;
+}
+
+.bar-positive .button {
+    font-size: 25px;
+    border: 0px;
+}
+
+a::before {
+    line-height: 35px !important;
+}
+
+.present {
+    position: absolute;
+    top: 52vw;
+    width: 100%;
+    margin: 0 auto;
+    font-family: nisesegasonic, sans-serif;
+    font-size: 120%;
+    line-height: 105%;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px 1px #7b7fbe, -1px -1px 1px #7b7fbe;
+}
+
+img {
+	margin-left: 11vw;
+	width: 80%;
+	height: auto;
+	margin-top: 55vw;
+}
