@@ -18,6 +18,7 @@ angular.module('nerdyfm.controller', [])
 
     //Function for the button. Should be self-explanatory
     $scope.onClick = function() {
+    	//If the stream is currently paused, then play it
         if ($scope.audio.paused) {
         	$scope.audio.src = 'http://streams4.museter.com:8344/;stream.nsv'; //Set the source
             $scope.audio.load(); //Reload the stream. Gets the user up-to-date with the stream
@@ -43,6 +44,7 @@ angular.module('nerdyfm.controller', [])
 			        $scope.getListing();
 			    }, 15000);
             }
+        //Stream is playing, let's pause it
         } else {
             $scope.audio.pause(); //Pause the song
             $scope.audio.src = '';//Remove the source (stops the streaming)
@@ -73,7 +75,7 @@ angular.module('nerdyfm.controller', [])
 
             	try {
             		//Cordova plugin that changes the metadata for iOS lock screen
-            		window.NowPlaying.updateMetas($scope.track.artist, $scope.track.title, $scope.track.album, $scope.track.imageurl);
+            		window.NowPlaying.updateMetas($scope.track.artist, $scope.track.title, $scope.track.album);
             	} catch (e) {
             		// console.log(e);
             	}

@@ -533,3 +533,106 @@ Mar 22 21:39:58 C2QM90JAFTPL rtcreporting[28285] <Debug>: setMessageLoggingBlock
 2015-03-23 08:53:37.736 Nerdy.FM[32037:1884195] Finished load of: file:///Users/cameronbates/Library/Developer/CoreSimulator/Devices/DA8D4003-A2FE-484F-99AE-13B5BF0EA8EE/data/Containers/Bundle/Application/B2F4F69B-069E-4CE2-8A27-CDAB9BE5F976/Nerdy.FM.app/www/index.html
 Mar 23 08:53:48 C2QM90JAFTPL.local rtcreporting[32037] <Info>: logging starts...
 Mar 23 08:53:48 C2QM90JAFTPL.local rtcreporting[32037] <Debug>: setMessageLoggingBlock: called
+2015-03-23 12:18:45.663 Nerdy.FM[40868:1968207] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/cameronbates/Library/Developer/CoreSimulator/Devices/DA8D4003-A2FE-484F-99AE-13B5BF0EA8EE/data/Containers/Data/Application/CDD85653-75A7-444C-A06F-CA9FF5E38A4D/Library/Cookies/Cookies.binarycookies
+2015-03-23 12:18:45.980 Nerdy.FM[40868:1968207] Apache Cordova native platform version 3.8.0 is starting.
+2015-03-23 12:18:45.980 Nerdy.FM[40868:1968207] Multi-tasking -> Device: YES, App: YES
+2015-03-23 12:18:46.001 Nerdy.FM[40868:1968207] Unlimited access to network resources
+2015-03-23 12:18:46.365 Nerdy.FM[40868:1968207] [CDVTimer][keyboard] 0.494003ms
+2015-03-23 12:18:46.378 Nerdy.FM[40868:1968207] [CDVTimer][file] 11.916995ms
+2015-03-23 12:18:46.511 Nerdy.FM[40868:1968207] [CDVTimer][statusbar] 133.805990ms
+2015-03-23 12:18:46.523 Nerdy.FM[40868:1968207] [CDVTimer][backgroundaudio] 11.247993ms
+2015-03-23 12:18:46.523 Nerdy.FM[40868:1968207] [CDVTimer][backgroundaudio] 0.007987ms
+2015-03-23 12:18:46.523 Nerdy.FM[40868:1968207] [CDVTimer][TotalPluginStartup] 158.169985ms
+2015-03-23 12:18:46.617 Nerdy.FM[40868:1968207] Resetting plugins due to page load.
+2015-03-23 12:18:47.127 Nerdy.FM[40868:1968207] Finished load of: file:///Users/cameronbates/Library/Developer/CoreSimulator/Devices/DA8D4003-A2FE-484F-99AE-13B5BF0EA8EE/data/Containers/Bundle/Application/7C101D6C-DEB3-4C01-AFE8-B22DF19D4BBA/Nerdy.FM.app/www/index.html
+2015-03-23 12:19:55.400 Nerdy.FM[41098:1970603] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/cameronbates/Library/Developer/CoreSimulator/Devices/DA8D4003-A2FE-484F-99AE-13B5BF0EA8EE/data/Containers/Data/Application/7DB21117-F0D3-430A-959E-9FEB67CBD5C0/Library/Cookies/Cookies.binarycookies
+2015-03-23 12:19:55.706 Nerdy.FM[41098:1970603] Apache Cordova native platform version 3.8.0 is starting.
+2015-03-23 12:19:55.706 Nerdy.FM[41098:1970603] Multi-tasking -> Device: YES, App: YES
+2015-03-23 12:19:55.718 Nerdy.FM[41098:1970603] Unlimited access to network resources
+2015-03-23 12:19:56.107 Nerdy.FM[41098:1970603] [CDVTimer][keyboard] 0.100970ms
+2015-03-23 12:19:56.119 Nerdy.FM[41098:1970603] [CDVTimer][file] 12.274027ms
+2015-03-23 12:19:56.243 Nerdy.FM[41098:1970603] [CDVTimer][statusbar] 123.330951ms
+2015-03-23 12:19:56.259 Nerdy.FM[41098:1970603] [CDVTimer][backgroundaudio] 16.003013ms
+2015-03-23 12:19:56.259 Nerdy.FM[41098:1970603] [CDVTimer][backgroundaudio] 0.007987ms
+2015-03-23 12:19:56.259 Nerdy.FM[41098:1970603] [CDVTimer][TotalPluginStartup] 153.750002ms
+2015-03-23 12:19:56.323 Nerdy.FM[41098:1970603] Resetting plugins due to page load.
+2015-03-23 12:19:56.935 Nerdy.FM[41098:1970603] Finished load of: file:///Users/cameronbates/Library/Developer/CoreSimulator/Devices/DA8D4003-A2FE-484F-99AE-13B5BF0EA8EE/data/Containers/Bundle/Application/E50ED871-F8B1-4EDD-B0C4-13727AD585AF/Nerdy.FM.app/www/index.html
+2015-03-23 12:20:04.012 Nerdy.FM[41098:1970603] {"available":true,"platform":"iOS","version":"8.2","uuid":"8B74ADE0-E9C7-4650-8936-F4E5A63F0886","cordova":"3.8.0","model":"x86_64","manufacturer":"Apple"}
+Mar 23 12:20:05 C2QM90JAFTPL.local rtcreporting[41098] <Info>: logging starts...
+Mar 23 12:20:05 C2QM90JAFTPL.local rtcreporting[41098] <Debug>: setMessageLoggingBlock: called
+2015-03-23 12:22:08.188 Nerdy.FM[41297:1973256] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/cameronbates/Library/Developer/CoreSimulator/Devices/DA8D4003-A2FE-484F-99AE-13B5BF0EA8EE/data/Containers/Data/Application/FB121F55-6464-4A50-8578-BCFFB11E6D3B/Library/Cookies/Cookies.binarycookies
+2015-03-23 12:22:08.258 Nerdy.FM[41297:1973256] Apache Cordova native platform version 3.8.0 is starting.
+2015-03-23 12:22:08.258 Nerdy.FM[41297:1973256] Multi-tasking -> Device: YES, App: YES
+2015-03-23 12:22:08.260 Nerdy.FM[41297:1973256] Unlimited access to network resources
+2015-03-23 12:22:08.338 Nerdy.FM[41297:1973256] [CDVTimer][keyboard] 0.063956ms
+2015-03-23 12:22:08.343 Nerdy.FM[41297:1973256] [CDVTimer][file] 5.264997ms
+2015-03-23 12:22:08.380 Nerdy.FM[41297:1973256] [CDVTimer][statusbar] 36.090016ms
+2015-03-23 12:22:08.380 Nerdy.FM[41297:1973256] [CDVTimer][backgroundaudio] 0.445008ms
+2015-03-23 12:22:08.380 Nerdy.FM[41297:1973256] [CDVTimer][backgroundaudio] 0.007987ms
+2015-03-23 12:22:08.381 Nerdy.FM[41297:1973256] [CDVTimer][TotalPluginStartup] 42.649984ms
+2015-03-23 12:22:08.447 Nerdy.FM[41297:1973256] Resetting plugins due to page load.
+2015-03-23 12:22:08.841 Nerdy.FM[41297:1973256] Finished load of: file:///Users/cameronbates/Library/Developer/CoreSimulator/Devices/DA8D4003-A2FE-484F-99AE-13B5BF0EA8EE/data/Containers/Bundle/Application/0690D4D0-953D-45B2-84C8-18EB2F43CBE2/Nerdy.FM.app/www/index.html
+2015-03-23 12:22:24.074 Nerdy.FM[41297:1973256] x86_64
+Mar 23 12:22:24 C2QM90JAFTPL.local rtcreporting[41297] <Info>: logging starts...
+Mar 23 12:22:24 C2QM90JAFTPL.local rtcreporting[41297] <Debug>: setMessageLoggingBlock: called
+2015-03-23 12:34:50.307 Nerdy.FM[42014:1981917] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/cameronbates/Library/Developer/CoreSimulator/Devices/DA8D4003-A2FE-484F-99AE-13B5BF0EA8EE/data/Containers/Data/Application/FF5B07F7-342D-40B3-9563-80AA26F0E571/Library/Cookies/Cookies.binarycookies
+2015-03-23 12:34:50.539 Nerdy.FM[42014:1981917] Apache Cordova native platform version 3.8.0 is starting.
+2015-03-23 12:34:50.540 Nerdy.FM[42014:1981917] Multi-tasking -> Device: YES, App: YES
+2015-03-23 12:34:50.552 Nerdy.FM[42014:1981917] Unlimited access to network resources
+2015-03-23 12:34:50.765 Nerdy.FM[42014:1981917] [CDVTimer][keyboard] 0.307977ms
+2015-03-23 12:34:50.772 Nerdy.FM[42014:1981917] [CDVTimer][file] 6.708026ms
+2015-03-23 12:34:50.849 Nerdy.FM[42014:1981917] [CDVTimer][statusbar] 76.556981ms
+2015-03-23 12:34:50.860 Nerdy.FM[42014:1981917] [CDVTimer][backgroundaudio] 11.187017ms
+2015-03-23 12:34:50.860 Nerdy.FM[42014:1981917] [CDVTimer][backgroundaudio] 0.012040ms
+2015-03-23 12:34:50.860 Nerdy.FM[42014:1981917] [CDVTimer][TotalPluginStartup] 95.984995ms
+2015-03-23 12:34:50.951 Nerdy.FM[42014:1981917] Resetting plugins due to page load.
+2015-03-23 12:34:51.502 Nerdy.FM[42014:1981917] Finished load of: file:///Users/cameronbates/Library/Developer/CoreSimulator/Devices/DA8D4003-A2FE-484F-99AE-13B5BF0EA8EE/data/Containers/Bundle/Application/BB65A97A-5C0E-4067-A842-16536D7206CB/Nerdy.FM.app/www/index.html
+2015-03-23 12:36:04.060 Nerdy.FM[42177:1983010] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/cameronbates/Library/Developer/CoreSimulator/Devices/DA8D4003-A2FE-484F-99AE-13B5BF0EA8EE/data/Containers/Data/Application/3E5F4597-4792-4536-9307-AFBD98EB3246/Library/Cookies/Cookies.binarycookies
+2015-03-23 12:36:04.117 Nerdy.FM[42177:1983010] Apache Cordova native platform version 3.8.0 is starting.
+2015-03-23 12:36:04.117 Nerdy.FM[42177:1983010] Multi-tasking -> Device: YES, App: YES
+2015-03-23 12:36:04.119 Nerdy.FM[42177:1983010] Unlimited access to network resources
+2015-03-23 12:36:04.190 Nerdy.FM[42177:1983010] [CDVTimer][keyboard] 0.060022ms
+2015-03-23 12:36:04.193 Nerdy.FM[42177:1983010] [CDVTimer][file] 2.866983ms
+2015-03-23 12:36:04.214 Nerdy.FM[42177:1983010] [CDVTimer][statusbar] 20.792007ms
+2015-03-23 12:36:04.214 Nerdy.FM[42177:1983010] [CDVTimer][backgroundaudio] 0.371039ms
+2015-03-23 12:36:04.215 Nerdy.FM[42177:1983010] [CDVTimer][backgroundaudio] 0.005960ms
+2015-03-23 12:36:04.215 Nerdy.FM[42177:1983010] [CDVTimer][TotalPluginStartup] 24.740994ms
+2015-03-23 12:36:04.270 Nerdy.FM[42177:1983010] Resetting plugins due to page load.
+2015-03-23 12:36:04.597 Nerdy.FM[42177:1983010] Finished load of: file:///Users/cameronbates/Library/Developer/CoreSimulator/Devices/DA8D4003-A2FE-484F-99AE-13B5BF0EA8EE/data/Containers/Bundle/Application/BFD1639C-7AB7-4803-BB66-69D44A9CA901/Nerdy.FM.app/www/index.html
+2015-03-23 12:36:24.185 Nerdy.FM[42177:1983010] x86_64
+Mar 23 12:36:24 C2QM90JAFTPL.local rtcreporting[42177] <Info>: logging starts...
+Mar 23 12:36:24 C2QM90JAFTPL.local rtcreporting[42177] <Debug>: setMessageLoggingBlock: called
+2015-03-23 12:36:26.975 Nerdy.FM[42177:1983010] x86_64
+2015-03-23 12:47:48.588 Nerdy.FM[43538:1993850] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/cameronbates/Library/Developer/CoreSimulator/Devices/DA8D4003-A2FE-484F-99AE-13B5BF0EA8EE/data/Containers/Data/Application/F79DFA78-588B-4291-A03E-8DEAECEADD33/Library/Cookies/Cookies.binarycookies
+2015-03-23 12:47:48.907 Nerdy.FM[43538:1993850] Apache Cordova native platform version 3.8.0 is starting.
+2015-03-23 12:47:48.907 Nerdy.FM[43538:1993850] Multi-tasking -> Device: YES, App: YES
+2015-03-23 12:47:48.928 Nerdy.FM[43538:1993850] Unlimited access to network resources
+2015-03-23 12:47:49.297 Nerdy.FM[43538:1993850] [CDVTimer][keyboard] 0.167012ms
+2015-03-23 12:47:49.307 Nerdy.FM[43538:1993850] [CDVTimer][file] 10.231018ms
+2015-03-23 12:47:49.450 Nerdy.FM[43538:1993850] [CDVTimer][statusbar] 143.001020ms
+2015-03-23 12:47:49.465 Nerdy.FM[43538:1993850] [CDVTimer][backgroundaudio] 14.584005ms
+2015-03-23 12:47:49.465 Nerdy.FM[43538:1993850] [CDVTimer][backgroundaudio] 0.007987ms
+2015-03-23 12:47:49.465 Nerdy.FM[43538:1993850] [CDVTimer][TotalPluginStartup] 168.691993ms
+2015-03-23 12:47:49.555 Nerdy.FM[43538:1993850] Resetting plugins due to page load.
+2015-03-23 12:47:50.208 Nerdy.FM[43538:1993850] Finished load of: file:///Users/cameronbates/Library/Developer/CoreSimulator/Devices/DA8D4003-A2FE-484F-99AE-13B5BF0EA8EE/data/Containers/Bundle/Application/FC59A8B8-457D-4E5E-B9FD-E88880E801B6/Nerdy.FM.app/www/index.html
+2015-03-23 12:47:53.314 Nerdy.FM[43538:1993850] x86_64
+Mar 23 12:47:54 C2QM90JAFTPL.local rtcreporting[43538] <Info>: logging starts...
+Mar 23 12:47:54 C2QM90JAFTPL.local rtcreporting[43538] <Debug>: setMessageLoggingBlock: called
+2015-03-23 12:47:54.918 Nerdy.FM[43538:1993850] x86_64
+Mar 23 12:47:56 C2QM90JAFTPL.local rtcreporting[43538] <Debug>: initWithSessionInfo: XPC connection interrupted
+2015-03-23 13:46:52.015 Nerdy.FM[46712:2019035] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/cameronbates/Library/Developer/CoreSimulator/Devices/DA8D4003-A2FE-484F-99AE-13B5BF0EA8EE/data/Containers/Data/Application/2A0F212B-360F-4288-AB87-B7FD729EBA6C/Library/Cookies/Cookies.binarycookies
+2015-03-23 13:46:52.306 Nerdy.FM[46712:2019035] Apache Cordova native platform version 3.8.0 is starting.
+2015-03-23 13:46:52.306 Nerdy.FM[46712:2019035] Multi-tasking -> Device: YES, App: YES
+2015-03-23 13:46:52.320 Nerdy.FM[46712:2019035] Unlimited access to network resources
+2015-03-23 13:46:52.680 Nerdy.FM[46712:2019035] [CDVTimer][keyboard] 0.135005ms
+2015-03-23 13:46:52.689 Nerdy.FM[46712:2019035] [CDVTimer][file] 9.521008ms
+2015-03-23 13:46:52.831 Nerdy.FM[46712:2019035] [CDVTimer][statusbar] 141.786039ms
+2015-03-23 13:46:52.843 Nerdy.FM[46712:2019035] [CDVTimer][backgroundaudio] 11.268020ms
+2015-03-23 13:46:52.843 Nerdy.FM[46712:2019035] [CDVTimer][backgroundaudio] 0.007033ms
+2015-03-23 13:46:52.843 Nerdy.FM[46712:2019035] [CDVTimer][TotalPluginStartup] 163.480997ms
+2015-03-23 13:46:52.922 Nerdy.FM[46712:2019035] Resetting plugins due to page load.
+2015-03-23 13:46:53.407 Nerdy.FM[46712:2019035] Finished load of: file:///Users/cameronbates/Library/Developer/CoreSimulator/Devices/DA8D4003-A2FE-484F-99AE-13B5BF0EA8EE/data/Containers/Bundle/Application/ACDF8FCC-79EB-4633-BD30-13A4E834B187/Nerdy.FM.app/www/index.html
+Mar 23 13:46:56 C2QM90JAFTPL.local rtcreporting[46712] <Info>: logging starts...
+Mar 23 13:46:56 C2QM90JAFTPL.local rtcreporting[46712] <Debug>: setMessageLoggingBlock: called
+Mar 23 13:48:32 C2QM90JAFTPL.local rtcreporting[46712] <Debug>: initWithSessionInfo: XPC connection interrupted
+2015-03-23 13:48:32.919 Nerdy.FM[46712:2020310] Terminating since there is no system app.

@@ -1,6 +1,6 @@
 angular.module('nerdyfm', ['ionic', 'nerdyfm.controller', 'ngCordova'])
 
-.run(function($ionicPlatform, $cordovaStatusbar, $interval) {
+.run(function($ionicPlatform, $cordovaStatusbar) {
     $ionicPlatform.ready(function() {
         if (window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);

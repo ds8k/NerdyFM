@@ -7683,15 +7683,15 @@ button:active {
 
 .nerdy {
   position: absolute;
-  top: 1em;
-  left: 0.3em;
+  top: 12vh;
+  left: 7vw;
   font-family: nisesega, sans-serif;
   line-height: 50%; }
 
 .fm {
   position: absolute;
-  top: 1.5em;
-  left: 3.5em;
+  top: 18vh;
+  left: 72vw;
   font-family: niseenduroracer, sans-serif;
   line-height: 30%; }
 
@@ -7705,7 +7705,7 @@ h1 {
 
 .ruletop {
   position: absolute;
-  top: 7vw;
+  top: 4vh;
   left: 0px;
   width: 60%;
   height: 2px;
@@ -7716,7 +7716,7 @@ h1 {
 
 .rulebtm {
   position: absolute;
-  top: 45vw;
+  top: 27vh;
   right: 0px;
   width: 60%;
   height: 2px;
@@ -7734,7 +7734,7 @@ a::before {
 
 .present {
   position: absolute;
-  top: 52vw;
+  top: 33vh;
   width: 100%;
   margin: 0 auto;
   font-family: nisesegasonic, sans-serif;
@@ -7745,8 +7745,9 @@ a::before {
   color: white;
   text-shadow: 1px 1px 1px #7b7fbe, -1px -1px 1px #7b7fbe; }
 
-img {
-  margin-left: 11vw;
-  width: 80%;
-  height: auto;
-  margin-top: 55vw; }
+.logocontainer img {
+  display: block;
+  margin-top: 36vh;
+  margin-left: auto;
+  margin-right: auto;
+  width: 36vh; }
