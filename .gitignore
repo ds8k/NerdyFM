@@ -4,3 +4,7 @@
 node_modules/
 platforms/
 plugins/
+CertificateSigningRequest.certSigningRequest
+my-release-key.keystore
+NerdyFM-release-unsigned.apk
+NerdyFM.apk
