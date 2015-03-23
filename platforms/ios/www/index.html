@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Nerdy.FM</title>
+    <link href="css/ionic.app.css" rel="stylesheet">
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ng-cordova.min.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controller.js"></script>
+</head>
+
+<body ng-app="nerdyfm" ng-controller="PlayCtrl" class="platform-ios platform-cordova platform-webview">
+<audio id="audiostream" src=""></audio>
+    <ion-pane class="background">
+    <ion-header-bar class="bar-positive">
+        <div class="button-bar">
+            <a class="button ion-social-twitter" onclick="window.open('http://www.twitter.com/nerdyfm', '_system');"></a>
+            <a class="button ion-social-facebook" onclick="window.open('http://www.facebook.com/nerdyfm', '_system');"></a>
+            <a class="button ion-ios-heart" onclick="window.open('http://www.nerdyshow.com', '_system');"></a>
+        </div>
+    </ion-header-bar>
+        <ion-content>
+        <hr class="ruletop" />
+            <h1>
+                <div class="nerdy">Nerdy</div>
+                <div class="fm">.FM</div>
+            </h1>
+        <hr class="rulebtm" />
+            <div class="present">Presented by</div>
+            <img class "logo" src="img/ns.png">
+        </ion-content>
+        <ion-footer-bar class="bar-subfooter bar-dark">
+            <div id="cc_strinfo_summary_nerdyfm" class="cc_streaminfo">
+                {{track.artist}}<br>
+                {{track.title}}<br>
+                {{track.album}}
+            </div>
+        </ion-footer-bar>
+
+        <ion-footer-bar class="bottom bar-dark">
+            <button ng-class="getClass()" ng-click="onClick()"></button>
+        </ion-footer-bar>
+    </ion-pane>
+</body>
+</html>

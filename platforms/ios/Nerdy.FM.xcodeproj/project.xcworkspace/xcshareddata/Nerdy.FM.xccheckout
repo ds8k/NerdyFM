@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>1E8A0AD6-67F7-4BF4-9C1F-7E075C9EB228</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Nerdy.FM</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1E9749CD2C94797150B3E1F712D88BBD448B9BDE</key>
+		<string>https://github.com/ds8k/NerdyFM</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>platforms/ios/Nerdy.FM.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1E9749CD2C94797150B3E1F712D88BBD448B9BDE</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/ds8k/NerdyFM</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1E9749CD2C94797150B3E1F712D88BBD448B9BDE</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1E9749CD2C94797150B3E1F712D88BBD448B9BDE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>NerdyFM</string>
+		</dict>
+	</array>
+</dict>
+</plist>

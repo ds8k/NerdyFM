@@ -1,0 +1,65 @@
+{
+    "org.apache.cordova.device": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.device"
+        }
+    },
+    "org.apache.cordova.console": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.console"
+        }
+    },
+    "com.ionic.keyboard": {
+        "source": {
+            "type": "registry",
+            "id": "com.ionic.keyboard"
+        }
+    },
+    "org.apache.cordova.media": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.media"
+        }
+    },
+    "org.apache.cordova.file": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.file"
+        }
+    },
+    "org.apache.cordova.statusbar": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.statusbar"
+        }
+    },
+    "org.apache.cordova.inappbrowser": {
+        "source": {
+            "type": "git",
+            "url": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git",
+            "subdir": "."
+        }
+    },
+    "com.rd11.remote-controls": {
+        "source": {
+            "type": "registry",
+            "id": "com.rd11.remote-controls"
+        }
+    },
+    "com.silverorange.now-playing": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ChoiZ/NowPlaying.git",
+            "subdir": "."
+        }
+    },
+    "nl.kingsquare.cordova.background-audio": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/AubreyHewes/cordova-background-audio",
+            "subdir": "."
+        }
+    }
+}
