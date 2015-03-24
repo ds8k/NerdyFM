@@ -51,6 +51,7 @@
 		F0E5EEE84FCC467C9A7BAA1D /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 465EC3511A9F45DE93CC3EAC /* CDVInAppBrowser.m */; };
 		FFD31416CCE14B8881B974DA /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = FA83A09DE8104E8B86110D82 /* CDVFile.m */; };
 		A3C938517D7E4072B240DF92 /* BackgroundAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C49CDE743C43E5BE3E1852 /* BackgroundAudio.m */; };
+		1F805D55FE7F4F3FB3348237 /* RemoteControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CE17A9D03A4448B9E610DA /* RemoteControls.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +137,8 @@
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = Nerdy.FM/config.xml; sourceTree = "<group>"; };
 		FA83A09DE8104E8B86110D82 /* CDVFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVFile.m; path = org.apache.cordova.file/CDVFile.m; sourceTree = "<group>"; };
 		42C49CDE743C43E5BE3E1852 /* BackgroundAudio.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "BackgroundAudio.m"; path = "nl.kingsquare.cordova.background-audio/BackgroundAudio.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		01CE17A9D03A4448B9E610DA /* RemoteControls.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "RemoteControls.m"; path = "com.rd11.remote-controls/RemoteControls.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		ED98F2EEDDA54192949C48C9 /* RemoteControls.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "RemoteControls.h"; path = "com.rd11.remote-controls/RemoteControls.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +260,8 @@
 				DDBCB8139F554F738D4B41A3 /* NowPlaying.m */,
 				19E2E4F1445A478DBE411129 /* NowPlaying.h */,
 				42C49CDE743C43E5BE3E1852 /* BackgroundAudio.m */,
+				01CE17A9D03A4448B9E610DA /* RemoteControls.m */,
+				ED98F2EEDDA54192949C48C9 /* RemoteControls.h */,
 			);
 			name = Plugins;
 			path = Nerdy.FM/Plugins;
@@ -457,6 +462,7 @@
 				F0E5EEE84FCC467C9A7BAA1D /* CDVInAppBrowser.m in Sources */,
 				707C9AE6235A4272A2CCB8C4 /* NowPlaying.m in Sources */,
 				A3C938517D7E4072B240DF92 /* BackgroundAudio.m in Sources */,
+				1F805D55FE7F4F3FB3348237 /* RemoteControls.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

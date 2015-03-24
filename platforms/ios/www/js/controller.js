@@ -5,6 +5,7 @@ angular.module('nerdyfm.controller', [])
     $scope.audio = document.getElementById("audiostream"); //Get our audio element
     $scope.class = "play"; //Set dumb variable for play button
     $scope.track = { title: 'Click play!' }; //Let the user know what to do
+    $scope.listener = false;
 
     //Used to tell the button which CSS class to display on the frontend
     $scope.getClass = function() {
@@ -18,6 +19,15 @@ angular.module('nerdyfm.controller', [])
 
     //Function for the button. Should be self-explanatory
     $scope.onClick = function() {
+    	//Check to see if the event listener is set. If it isn't, add one!
+    	if(!$scope.listener) {
+    		document.addEventListener("remote-event", function(event) {
+				$scope.onClick();
+			});
+
+			$scope.listener = true;
+    	}
+
     	//If the stream is currently paused, then play it
         if ($scope.audio.paused) {
         	$scope.audio.src = 'http://streams4.museter.com:8344/;stream.nsv'; //Set the source
@@ -73,11 +83,13 @@ angular.module('nerdyfm.controller', [])
             if ($scope.track !== data.data[0].track) {
             	$scope.track = data.data[0].track;
 
+            	var params = [$scope.track.artist, $scope.track.title, $scope.track.album, $scope.track.imageurl];
+
             	try {
             		//Cordova plugin that changes the metadata for iOS lock screen
-            		window.NowPlaying.updateMetas($scope.track.artist, $scope.track.title, $scope.track.album);
+            		window.NowPlaying.updateMetas($scope.track.artist, $scope.track.title, $scope.track.album, $scope.track.imageurl);
             	} catch (e) {
-            		// console.log(e);
+            		console.log(e);
             	}
             }
         });

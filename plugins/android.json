@@ -55,6 +55,9 @@
         },
         "nl.kingsquare.cordova.background-audio": {
             "PACKAGE_NAME": "com.nerdyfm.app"
+        },
+        "com.rd11.remote-controls": {
+            "PACKAGE_NAME": "com.nerdyfm.app"
         }
     },
     "dependent_plugins": {}

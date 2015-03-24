@@ -35,6 +35,13 @@ module.exports = [
         "clobbers": [
             "window.NowPlaying"
         ]
+    },
+    {
+        "file": "plugins/com.rd11.remote-controls/www/RemoteControls.js",
+        "id": "com.rd11.remote-controls.RemoteControls",
+        "clobbers": [
+            "window.remoteControls"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -46,7 +53,8 @@ module.exports.metadata =
     "org.apache.cordova.statusbar": "0.1.10",
     "org.apache.cordova.inappbrowser": "0.6.1-dev",
     "com.silverorange.now-playing": "1.0.0",
-    "nl.kingsquare.cordova.background-audio": "1.0.0"
+    "nl.kingsquare.cordova.background-audio": "1.0.0",
+    "com.rd11.remote-controls": "1.0.0"
 }
 // BOTTOM OF METADATA
 });
