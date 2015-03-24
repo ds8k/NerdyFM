@@ -43,11 +43,6 @@ angular.module('nerdyfm.controller', [])
 
     	if($cordovaDevice.getPlatform() === 'iOS' && $scope.audio.paused) {
 
-    		//Set the source
-    		$scope.audio.src = 'http://streams4.museter.com:8344/;stream.nsv';
-            $scope.audio.load(); //Reload the stream. Gets the user up-to-date with the stream
-            $scope.audio.play(); //Finally, play it
-
     		//Change the track object. Kind of crappy but it works
             $scope.track = {
                 artist: '',
@@ -56,10 +51,17 @@ angular.module('nerdyfm.controller', [])
                 imageurl: ''
             };
 
+    		//Set the source
+    		$scope.audio.src = 'http://streams4.museter.com:8344/;stream.nsv';
+            $scope.audio.load(); //Reload the stream. Gets the user up-to-date with the stream
+            $scope.audio.play(); //Finally, play it
+
             //Get the current streaming song. This function will change the track object
             $scope.getListing();
             $scope.startInterval();
+
     	} else if($cordovaDevice.getPlatform() === 'Android' && !$scope.androidAudio) {
+
     		//Change the track object. Kind of crappy but it works
             $scope.track = {
                 artist: '',
@@ -72,6 +74,7 @@ angular.module('nerdyfm.controller', [])
         	$scope.androidAudio.play();
             $scope.getListing();
             $scope.startInterval();
+            
     	} else {
     		if($cordovaDevice.getPlatform() === 'iOS') {
     			$scope.audio.pause(); //Pause the song
