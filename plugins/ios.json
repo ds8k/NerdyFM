@@ -51,6 +51,10 @@
                         {
                             "xml": "<feature name=\"RemoteControls\"><param name=\"ios-package\" value=\"RemoteControls\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Media\"><param name=\"ios-package\" value=\"CDVSound\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -121,6 +125,9 @@
             "PACKAGE_NAME": "com.nerdyfm.app"
         },
         "com.rd11.remote-controls": {
+            "PACKAGE_NAME": "com.nerdyfm.app"
+        },
+        "org.apache.cordova.media": {
             "PACKAGE_NAME": "com.nerdyfm.app"
         }
     },

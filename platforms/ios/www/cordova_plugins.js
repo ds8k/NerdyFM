@@ -202,6 +202,20 @@ module.exports = [
         "clobbers": [
             "window.remoteControls"
         ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.media/www/MediaError.js",
+        "id": "org.apache.cordova.media.MediaError",
+        "clobbers": [
+            "window.MediaError"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.media/www/Media.js",
+        "id": "org.apache.cordova.media.Media",
+        "clobbers": [
+            "window.Media"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -215,7 +229,8 @@ module.exports.metadata =
     "org.apache.cordova.inappbrowser": "0.6.1-dev",
     "com.silverorange.now-playing": "1.0.0",
     "nl.kingsquare.cordova.background-audio": "1.0.0",
-    "com.rd11.remote-controls": "1.0.0"
+    "com.rd11.remote-controls": "1.0.0",
+    "org.apache.cordova.media": "0.2.16"
 }
 // BOTTOM OF METADATA
 });

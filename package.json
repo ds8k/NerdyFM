@@ -17,6 +17,7 @@
   "cordovaPlugins": [
     "org.apache.cordova.device",
     "org.apache.cordova.statusbar",
-    "com.rd11.remote-controls"
+    "com.rd11.remote-controls",
+    "org.apache.cordova.media"
   ]
 }

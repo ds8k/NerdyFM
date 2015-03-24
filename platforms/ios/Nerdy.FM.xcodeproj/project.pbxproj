@@ -52,6 +52,7 @@
 		FFD31416CCE14B8881B974DA /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = FA83A09DE8104E8B86110D82 /* CDVFile.m */; };
 		A3C938517D7E4072B240DF92 /* BackgroundAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C49CDE743C43E5BE3E1852 /* BackgroundAudio.m */; };
 		1F805D55FE7F4F3FB3348237 /* RemoteControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CE17A9D03A4448B9E610DA /* RemoteControls.m */; };
+		4640D8A8E57F4A449BD57F60 /* CDVSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D69430294C542DC8D3806A2 /* CDVSound.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,8 @@
 		42C49CDE743C43E5BE3E1852 /* BackgroundAudio.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "BackgroundAudio.m"; path = "nl.kingsquare.cordova.background-audio/BackgroundAudio.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		01CE17A9D03A4448B9E610DA /* RemoteControls.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "RemoteControls.m"; path = "com.rd11.remote-controls/RemoteControls.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		ED98F2EEDDA54192949C48C9 /* RemoteControls.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "RemoteControls.h"; path = "com.rd11.remote-controls/RemoteControls.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		0D69430294C542DC8D3806A2 /* CDVSound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVSound.m"; path = "org.apache.cordova.media/CDVSound.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		5040D047FA13412E898A11EF /* CDVSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVSound.h"; path = "org.apache.cordova.media/CDVSound.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +265,8 @@
 				42C49CDE743C43E5BE3E1852 /* BackgroundAudio.m */,
 				01CE17A9D03A4448B9E610DA /* RemoteControls.m */,
 				ED98F2EEDDA54192949C48C9 /* RemoteControls.h */,
+				0D69430294C542DC8D3806A2 /* CDVSound.m */,
+				5040D047FA13412E898A11EF /* CDVSound.h */,
 			);
 			name = Plugins;
 			path = Nerdy.FM/Plugins;
@@ -463,6 +468,7 @@
 				707C9AE6235A4272A2CCB8C4 /* NowPlaying.m in Sources */,
 				A3C938517D7E4072B240DF92 /* BackgroundAudio.m in Sources */,
 				1F805D55FE7F4F3FB3348237 /* RemoteControls.m in Sources */,
+				4640D8A8E57F4A449BD57F60 /* CDVSound.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
