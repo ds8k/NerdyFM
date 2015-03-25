@@ -31,8 +31,9 @@
     },
     "org.apache.cordova.statusbar": {
         "source": {
-            "type": "registry",
-            "id": "org.apache.cordova.statusbar"
+            "type": "git",
+            "url": "https://github.com/apache/cordova-plugin-statusbar",
+            "subdir": "."
         }
     },
     "org.apache.cordova.inappbrowser": {

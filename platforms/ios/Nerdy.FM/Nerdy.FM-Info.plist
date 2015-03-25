@@ -66,6 +66,10 @@
     <true/>
     <key>NSMainNibFile~ipad</key>
     <string></string>
+    <key>UIBackgroundModes</key>
+    <array>
+      <string>audio</string>
+    </array>
     <key>UILaunchImages</key>
     <array>
       <dict>
@@ -169,16 +173,14 @@
         <string>{768, 1024}</string>
       </dict>
     </array>
+    <key>UIStatusBarStyle</key>
+    <string>UIStatusBarStyleLightContent</string>
     <key>UISupportedInterfaceOrientations~ipad</key>
     <array>
       <string>UIInterfaceOrientationPortrait</string>
       <string>UIInterfaceOrientationLandscapeLeft</string>
       <string>UIInterfaceOrientationPortraitUpsideDown</string>
       <string>UIInterfaceOrientationLandscapeRight</string>
-    </array>
-    <key>UIBackgroundModes</key>
-    <array>
-      <string>audio</string>
     </array>
   </dict>
 </plist>
