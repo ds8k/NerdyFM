@@ -216,6 +216,13 @@ module.exports = [
         "clobbers": [
             "window.StatusBar"
         ]
+    },
+    {
+        "file": "plugins/nl.x-services.plugins.socialsharing/www/SocialSharing.js",
+        "id": "nl.x-services.plugins.socialsharing.SocialSharing",
+        "clobbers": [
+            "window.plugins.socialsharing"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -230,7 +237,8 @@ module.exports.metadata =
     "nl.kingsquare.cordova.background-audio": "1.0.0",
     "com.rd11.remote-controls": "1.0.0",
     "org.apache.cordova.media": "0.2.16",
-    "org.apache.cordova.statusbar": "0.1.11-dev"
+    "org.apache.cordova.statusbar": "0.1.11-dev",
+    "nl.x-services.plugins.socialsharing": "4.3.15"
 }
 // BOTTOM OF METADATA
 });

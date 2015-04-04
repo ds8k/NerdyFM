@@ -10,7 +10,7 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
-$positive: #2196F3;
+$positive: #F44336;
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 @import "www/lib/ionic/scss/ionic";
@@ -23,96 +23,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @font-face {
     font-family: "niseenduroracer";
     src: url(../fonts/NiseEnduroRacer.TTF);
-}
-
-.bar-header {
-    box-shadow: 3px 0px 7px 0px #333;
-}
-
-.bar-footer {
-    height: 100px;
-    box-shadow: 0px -7px 7px -1px #333;
-    border-top: 0px !important;
-}
-
-.bar-subfooter {
-    height: 120px !important;
-    background-color: rgba(71, 71, 71, 0.7) !important;
-    box-shadow: 0px -7px 7px -7px #333;
-    border-top: 0px !important;
-}
-
-.bar.bar-dark.bar-footer {
-	background-image: linear-gradient(180deg, #444444, #444444 50%, transparent 50%) !important;
-}
-
-.background {
-    background: url(../img/bg.png);
-    background-repeat: no-repeat;
-    background-size: 100% auto !important;
-}
-
-.cc_streaminfo a {
-    color: silver;
-    text-decoration: none;
-    text-align: center;
-    font-weight: bold;
-}
-
-.cc_streaminfo {
-	width: 100%;
-	text-align: center;
-	line-height: 18px;
-	font-size: 13px;
-}
-
-button {
-    position: relative;
-    display: inline-block;
-    padding: .6em;
-    background: linear-gradient(#fff, #ccc), #c9c5c9;
-    border-radius: 10em;
-    border: 0 solid rgba(208, 208, 208, 1.000);
-    width: 6em;
-    height: 6em;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 (6em * .06) (6em * .07) rgba(0, 0, 0, .4);
-}
-
-button:before, button:after {
-    position: absolute;
-    content: " ";
-}
-
-button:active {
-    top: (6em * .05);
-    box-shadow: 0 (6em * .02) (6em * .03) rgba(0, 0, 0, .4);
-}
-
-.play:before {
-    z-index: 2;
-    top: 6em * .22;
-    left: 6em * .36;
-    width: 0;
-    height: 0;
-    border: 6em * .3 solid transparent;
-    border-left-color: rgba(100, 100, 100, .8);
-    border-left-width: (6em * .45);
-}
-
-.pause:before, .pause:after {
-    height: (6em * .47);
-    width: (6em * .19);
-    left: (6em * .29);
-    top: (6em * .28);
-    display: block;
-    background-color: rgba(100, 100, 100, .8);
-    ;
-}
-
-.pause:after {
-    left: (6em * .54);
 }
 
 .nerdy {
@@ -131,15 +41,6 @@ button:active {
     line-height: 30%;
 }
 
-h1 {
-    font-size: 20vw;
-    text-align: left;
-    text-shadow: 3px 3px 5px #7b7fbe, -3px -3px 5px #7b7fbe;
-    z-index: 100;
-    overflow: hidden;
-    color: white;
-}
-
 .ruletop {
     position: absolute;
     top: 4vh;
@@ -152,6 +53,14 @@ h1 {
     z-index: 200;
 }
 
+.logocontainer img {
+    display: block;
+    margin-top: 36vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 36vh;
+}
+
 .rulebtm {
     position: absolute;
     top: 27vh;
@@ -162,15 +71,6 @@ h1 {
     background-color: red;
     box-shadow: 1px 1px 2px red, -1px -1px 2px red;
     z-index: 200;
-}
-
-.bar-positive .button {
-    font-size: 25px;
-    border: 0px;
-}
-
-a::before {
-    line-height: 35px !important;
 }
 
 .present {
@@ -187,10 +87,190 @@ a::before {
     text-shadow: 1px 1px 1px #7b7fbe, -1px -1px 1px #7b7fbe;
 }
 
-.logocontainer img {
-	display: block;
-	margin-top: 36vh;
-	margin-left: auto;
-	margin-right: auto;
-	width: 36vh;
+.bar-header {
+    box-shadow: 0px -2px 10px 0px #333;
+}
+
+.bar-footer {
+    height: 70px;
+    border-top: 0px !important;
+}
+
+.bar.bar-dark.bar-footer {
+    background-image: linear-gradient(180deg, #444444, #444444 50%, transparent 50%) !important;
+}
+
+.background {
+    background: url(../img/bg.png);
+    background-repeat: no-repeat;
+    background-size: 100% auto !important;
+}
+
+.playorload {
+    width: 100%;
+    color: white;
+    text-align: center;
+    line-height: 18px;
+    font-size: 13px;
+}
+
+.cc_streaminfo img {
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin-right: 10px;
+}
+
+.cc_streaminfo a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cc_streaminfo {
+	width: 100%;
+    color: white;
+	line-height: 18px;
+	font-size: 13px;
+}
+
+.recent {
+    font-size: 9vw;
+    text-align: center;
+    text-shadow: 3px 3px 5px #7b7fbe, -3px -3px 5px #7b7fbe;
+    font-family: nisesega, sans-serif;
+    z-index: 100;
+    overflow: hidden;
+    color: white;
+    margin-top: 10px!important;
+    margin-bottom:0px!important;
+}
+
+h1 {
+    font-size: 20vw;
+    text-align: left;
+    text-shadow: 3px 3px 5px #7b7fbe, -3px -3px 5px #7b7fbe;
+    z-index: 100;
+    overflow: hidden;
+    color: white;
+}
+
+.bar-positive .button {
+    font-size: 25px;
+    border: 0px;
+}
+
+a::before {
+    line-height: 35px !important;
+}
+
+.cardHome {
+    width: 27vw;
+    //max-width: 24vw;
+    height: 30vw;
+    float: left;
+    margin-top: 2vh;
+    margin-bottom:1vh;
+    background-color:grey;
+}
+
+.cardHome b {
+    font-size: 120%;
+}
+
+.cardHome p {
+    font-size:2vw;
+    color: white;
+}
+
+.cardHome .ng-binding {
+    line-height: 2.5vw !important;
+}
+
+.cardHome img {
+    height: 21vw;
+    width: 0vw;
+}
+
+.cardHome .item .item-text {
+    padding-top: 2vw !important;
+    padding-left: 1vw;
+    padding-right:1vw;
+    color: black;
+}
+
+.cardHome .item {
+    background-color: grey;
+    border-color: grey;
+}
+
+.extraBar {
+    height: 44px;
+}
+
+.middleBar{
+    bottom:44px;
+    box-shadow: 0px 2px 10px 0px #333;
+}
+
+.popUp {
+    position: relative;
+    top: 45vh;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    width: 80vw !important;
+    height:auto;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:grey!important;
+}
+
+.popUp img {
+    width:100%;
+    //height:auto;
+}
+
+.backdrop {
+    transition: 0.1s opacity linear!important;
+}
+
+.modal-backdrop-bg {
+    background-color: #000;
+    opacity: 0.5;
+}
+
+.ion-play {
+    margin-top: auto!important;
+    margin-bottom: auto!important;
+}
+
+.ion-pause {
+    margin-top: auto!important;
+    margin-bottom: auto!important;
+}
+
+.trackWrap {
+    overflow: hidden!important;
+    text-overflow: ellipsis!important;
+    white-space:nowrap!important;
+}
+
+.emptyText {
+    margin-top: 38vh;
+    text-align:center;
+}
+
+.has-footer {
+    bottom: 70px!important;
+}
+
+.listMargin {
+    width:100%;
+    height:100%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.popUpImage {
+    border-top:0px;
+    clear:both;
 }

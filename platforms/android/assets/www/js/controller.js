@@ -18,18 +18,6 @@ angular.module('nerdyfm.controller', [])
         $scope.class = $scope.class === "play" ? "pause" : "play";
     };
 
-    $scope.startInterval = function() {
-    	//Set a 15 second interval to check if the current song has changed
-        //If an interval is already set then we're already playing.
-        if (angular.isDefined($scope.stop)) {
-        	return;
-        } else {
-        	$scope.stop = $interval(function() {
-		        $scope.getListing();
-		    }, 15000);
-        }
-    };
-
     //Function for the button. Should be self-explanatory
     $scope.onClick = function() {
     	//Check to see if the event listener is set. If it isn't, add one!
@@ -74,7 +62,7 @@ angular.module('nerdyfm.controller', [])
         	$scope.androidAudio.play();
             $scope.getListing();
             $scope.startInterval();
-            
+
     	} else {
     		if($cordovaDevice.getPlatform() === 'iOS') {
     			$scope.audio.pause(); //Pause the song
@@ -101,6 +89,18 @@ angular.module('nerdyfm.controller', [])
         $scope.setClass();
     };
 
+    //Set a 15 second interval to check if the current song has changed
+	//If an interval is already set then we're already playing.
+    $scope.startInterval = function() {
+        if (angular.isDefined($scope.stop)) {
+        	return;
+        } else {
+        	$scope.stop = $interval(function() {
+		        $scope.getListing();
+		    }, 15000);
+        }
+    };
+
     //This function generates a random number and checks the current streaming song
     //Random number is necessary, otherwise we'd run into cached requests
     $scope.getListing = function() {
@@ -120,5 +120,9 @@ angular.module('nerdyfm.controller', [])
             	}
             }
         });
+    };
+
+    $scope.share = function() {
+        window.plugins.socialsharing.share('I\'m jamming to ' + $scope.track.artist + ' - ' + $scope.track.title +  ' on Nerdy.FM!', null, null, 'http://www.nerdy.fm');
     };
 });

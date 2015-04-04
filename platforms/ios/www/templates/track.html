@@ -1,0 +1,26 @@
+<ion-modal-view style="background-color:transparent!important;">
+    <ion-content scroll="false">
+        <div class="list card popUp">
+            <div class="item item-text" style="float:left;max-width:70%;background-color:grey!important;">
+                <h2 style="color:white;">{{record.artist}}</h2>
+                <p style="color:white;">{{record.title}}</p>
+            </div>
+            <div class="buttons" style="float:right!important;padding:5px!important;">
+                <button class="button button-clear" ng-click="close()">Close</button>
+            </div>
+            <div class="item item-image" style="border-top:0px;clear:both;">
+                <img ng-src="{{record.image}}">
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left" style="background-color:grey;color:white;">
+                <a class="tab-item" ng-click="favorite()">
+                    <i class="icon ion-star"></i>
+                    Favorite
+                </a>
+                <a class="tab-item" ng-click="share(record)">
+                    <i class="icon ion-share"></i>
+                    Share
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

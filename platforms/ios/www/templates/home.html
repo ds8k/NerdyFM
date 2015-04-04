@@ -1,0 +1,41 @@
+<ion-view view-title="Nerdy.FM">
+    <audio id="audiostream" src=""></audio>
+    <ion-content class="background" has-bouncing="true">
+        <h1>Recent Tracks</h1>
+        <div class="listMargin">
+            <ion-list ng-controller="TrackCtrl" class="recentList">
+                <div class="card cardHome" ng-repeat="track in recentTracks" ng-click="open(track)">
+                    <div class="item item-image">
+                        <img ng-src="{{track.image}}">
+                        <div class="item item-text">
+                            <p>
+                                <b>{{track.artist}}</b><br>
+                                {{track.title}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </ion-list>
+        </div>
+    </ion-content>
+        <ion-footer-bar class="bottom bar-dark middleBar">
+            <div ng-class="getTrackClass()">
+                <img ng-src="{{track.imageurl}}" ng-show="track.imageurl!==''">
+                <div class="trackWrap">
+                    {{track.artist}}<br>
+                    {{track.title}}<br>
+                    {{track.album}}
+                </div>
+            </div>
+            <a class="button button-icon icon ion-{{class}}" ng-click="onClick()"></a>
+        </ion-footer-bar>
+        <ion-footer-bar class="bottom bar-footer bar-positive extraBar">
+        <div class="button-bar">
+            <a class="button ion-social-twitter" onclick="window.open('http://www.twitter.com/nerdyfm', '_system');"></a>
+            <a class="button ion-social-facebook" onclick="window.open('http://www.facebook.com/150123715086527', '_system');"></a>
+            <a class="button ion-ios-heart" onclick="window.open('http://www.nerdyshow.com/support/', '_system');"></a>
+            <a class="button ion-share" ng-click="share()"></a>
+        </div>
+    </ion-footer-bar>
+    <!-- </ion-pane> -->
+</ion-view>

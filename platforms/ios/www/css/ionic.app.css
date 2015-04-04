@@ -7601,22 +7601,11 @@ a.button {
   font-family: "nisesega";
   src: url(../fonts/NiseSega.ttf); }
 
-@font-face {
-  font-family: "niseenduroracer";
-  src: url(../fonts/NiseEnduroRacer.TTF); }
-
 .bar-header {
-  box-shadow: 3px 0px 7px 0px #333; }
+  box-shadow: 0px -2px 10px 0px #333; }
 
 .bar-footer {
-  height: 100px;
-  box-shadow: 0px -7px 7px -1px #333;
-  border-top: 0px !important; }
-
-.bar-subfooter {
-  height: 120px !important;
-  background-color: rgba(71, 71, 71, 0.7) !important;
-  box-shadow: 0px -7px 7px -7px #333;
+  height: 70px;
   border-top: 0px !important; }
 
 .bar.bar-dark.bar-footer {
@@ -7627,103 +7616,39 @@ a.button {
   background-repeat: no-repeat;
   background-size: 100% auto !important; }
 
-.cc_streaminfo a {
-  color: silver;
-  text-decoration: none;
-  text-align: center;
-  font-weight: bold; }
-
-.cc_streaminfo {
+.playorload {
   width: 100%;
+  color: white;
   text-align: center;
   line-height: 18px;
   font-size: 13px; }
 
-button {
-  position: relative;
-  display: inline-block;
-  padding: 0.6em;
-  background: linear-gradient(#fff, #ccc), #c9c5c9;
-  border-radius: 10em;
-  border: 0 solid #d0d0d0;
-  width: 6em;
-  height: 6em;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 0 0.36em 0.42em rgba(0, 0, 0, 0.4); }
+.cc_streaminfo img {
+  width: 60px;
+  height: 60px;
+  float: left;
+  margin-right: 10px; }
 
-button:before, button:after {
-  position: absolute;
-  content: " "; }
+.cc_streaminfo a {
+  text-decoration: none;
+  font-weight: bold; }
 
-button:active {
-  top: 0.3em;
-  box-shadow: 0 0.12em 0.18em rgba(0, 0, 0, 0.4); }
-
-.play:before {
-  z-index: 2;
-  top: 1.32em;
-  left: 2.16em;
-  width: 0;
-  height: 0;
-  border: 1.8em solid transparent;
-  border-left-color: rgba(100, 100, 100, 0.8);
-  border-left-width: 2.7em; }
-
-.pause:before, .pause:after {
-  height: 2.82em;
-  width: 1.14em;
-  left: 1.74em;
-  top: 1.68em;
-  display: block;
-  background-color: rgba(100, 100, 100, 0.8); }
-
-.pause:after {
-  left: 3.24em; }
-
-.nerdy {
-  position: absolute;
-  top: 12vh;
-  left: 7vw;
-  font-family: nisesega, sans-serif;
-  line-height: 50%; }
-
-.fm {
-  position: absolute;
-  top: 18vh;
-  left: 72vw;
-  font-family: niseenduroracer, sans-serif;
-  line-height: 30%; }
+.cc_streaminfo {
+  width: 100%;
+  color: white;
+  line-height: 18px;
+  font-size: 13px; }
 
 h1 {
-  font-size: 20vw;
-  text-align: left;
+  font-size: 9vw;
+  text-align: center;
   text-shadow: 3px 3px 5px #7b7fbe, -3px -3px 5px #7b7fbe;
+  font-family: nisesega, sans-serif;
   z-index: 100;
   overflow: hidden;
-  color: white; }
-
-.ruletop {
-  position: absolute;
-  top: 4vh;
-  left: 0px;
-  width: 60%;
-  height: 2px;
-  border: 0px;
-  background-color: red;
-  box-shadow: 1px 1px 2px red, -1px -1px 2px red;
-  z-index: 200; }
-
-.rulebtm {
-  position: absolute;
-  top: 27vh;
-  right: 0px;
-  width: 60%;
-  height: 2px;
-  border: 0px;
-  background-color: red;
-  box-shadow: 1px 1px 2px red, -1px -1px 2px red;
-  z-index: 200; }
+  color: white;
+  margin-top: 10px !important;
+  margin-bottom: 0px !important; }
 
 .bar-positive .button {
   font-size: 25px;
@@ -7732,22 +7657,88 @@ h1 {
 a::before {
   line-height: 35px !important; }
 
-.present {
-  position: absolute;
-  top: 33vh;
-  width: 100%;
-  margin: 0 auto;
-  font-family: nisesegasonic, sans-serif;
-  font-size: 120%;
-  line-height: 105%;
-  text-transform: uppercase;
-  text-align: center;
-  color: white;
-  text-shadow: 1px 1px 1px #7b7fbe, -1px -1px 1px #7b7fbe; }
+.cardHome {
+  width: 27vw;
+  height: 30vw;
+  float: left;
+  margin-top: 1vh;
+  background-color: grey; }
 
-.logocontainer img {
-  display: block;
-  margin-top: 36vh;
+.cardHome b {
+  font-size: 120%; }
+
+.cardHome p {
+  font-size: 2vw;
+  color: white; }
+
+.cardHome .ng-binding {
+  line-height: 2.5vw !important; }
+
+.cardHome img {
+  height: 21vw;
+  width: 0vw; }
+
+.cardHome .item .item-text {
+  padding-top: 2vw !important;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  color: black; }
+
+.cardHome .item {
+  background-color: grey;
+  border-color: grey; }
+
+.extraBar {
+  height: 44px; }
+
+.middleBar {
+  bottom: 44px;
+  box-shadow: 0px 2px 10px 0px #333; }
+
+.popUp {
+  position: relative;
+  top: 45vh;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  width: 80vw !important;
+  height: auto;
   margin-left: auto;
   margin-right: auto;
-  width: 36vh; }
+  background-color: grey !important; }
+
+.backdrop {
+  transition: 0.1s opacity linear !important; }
+
+.modal-backdrop-bg {
+  background-color: #000;
+  opacity: 0.5; }
+
+.ion-play {
+  margin-top: auto !important;
+  margin-bottom: auto !important; }
+
+.ion-pause {
+  margin-top: auto !important;
+  margin-bottom: auto !important; }
+
+.trackWrap {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important; }
+
+.emptyText {
+  margin-top: 38vh;
+  text-align: center; }
+
+.has-footer {
+  bottom: 114px !important; }
+
+.listMargin {
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto; }
+
+.ion-view {
+  margin-left: auto;
+  margin-right: auto; }
