@@ -8,8 +8,8 @@
             <div class="buttons" style="float:right!important;padding:5px!important;">
                 <button class="button button-clear" ng-click="close()">Close</button>
             </div>
-            <div class="item item-image" style="border-top:0px;clear:both;">
-                <img ng-src="{{record.image}}">
+            <div class="item item-image popUpImage">
+                <img ng-src="{{record.image || record.imageurl}}">
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left" style="background-color:grey;color:white;">
                 <a class="tab-item" ng-click="favorite()">

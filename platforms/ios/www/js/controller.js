@@ -21,7 +21,10 @@ angular.module('nerdyfm.controller', [])
 
     $scope.open = function(record) {
         $scope.record = record;
-        $scope.modal.show();
+
+        if ($scope.record.artist) {
+            $scope.modal.show();
+        }
     };
 
     $scope.close = function() {
@@ -29,11 +32,12 @@ angular.module('nerdyfm.controller', [])
     };
 
     $scope.favorite = function() {
+
         var newFavorite = {
             artist: $scope.record.artist,
             title: $scope.record.title,
-            cover: $scope.record.image,
-            id: $scope.favorites.length - 1
+            cover: $scope.record.image || $scope.record.imageurl,
+            buy: $scope.record.url || $scope.record.buyurl
         };
 
         $rootScope.favorites.push(newFavorite);
@@ -48,6 +52,14 @@ angular.module('nerdyfm.controller', [])
     $scope.onDelete = function(record, index) {
         $rootScope.favorites.splice(index, 1);
         window.localStorage.favorites = JSON.stringify($rootScope.favorites);
+    };
+
+    $scope.openBuy = function(link) {
+        window.open(link, '_system');
+    };
+
+    $scope.openSearch = function(record) {
+        window.open('https://www.google.com/#q=' + record.artist + '+' + record.title, '_system');
     };
 })
 
@@ -173,17 +185,12 @@ angular.module('nerdyfm.controller', [])
     $rootScope.getListing = function() {
         var random = Math.floor((Math.random() * 10000) + 1);
         $http.get('http://streams4.museter.com:2199/external/rpc.php?m=streaminfo.get&username=nerdyfm&charset=&mountpoint=&rid=nerdyfm&_=' + random).success(function(data) {
+
             //If the song is different then change it
-            console.log($rootScope.song, data.data[0].song);
             if ($rootScope.song !== data.data[0].song) {
 
                 $rootScope.song = data.data[0].song;
                 $rootScope.track = data.data[0].track;
-
-                if ($rootScope.track.imageurl.indexOf('nocover') > -1) {
-                    $rootScope.track.imageurl = '';
-                }
-
                 $rootScope.setTrackClass();
                 $rootScope.getRecent();
 

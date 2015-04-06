@@ -42,6 +42,16 @@ angular.module('nerdyfm', ['ionic', 'nerdyfm.controller', 'ngCordova'])
         }
     })
 
+    .state('app.recent', {
+        url: "/recent",
+        views: {
+            'menuContent': {
+                templateUrl: "templates/recent.html",
+                controller: 'TrackCtrl'
+            }
+        }
+    })
+
     .state('app.favorites', {
         url: "/favorites",
         views: {
