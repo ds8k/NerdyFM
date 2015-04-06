@@ -175,13 +175,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.statusbar/www/statusbar.js",
-        "id": "org.apache.cordova.statusbar.statusbar",
-        "clobbers": [
-            "window.StatusBar"
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
         "id": "org.apache.cordova.inappbrowser.inappbrowser",
         "clobbers": [
@@ -202,6 +195,34 @@ module.exports = [
         "clobbers": [
             "window.remoteControls"
         ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.media/www/MediaError.js",
+        "id": "org.apache.cordova.media.MediaError",
+        "clobbers": [
+            "window.MediaError"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.media/www/Media.js",
+        "id": "org.apache.cordova.media.Media",
+        "clobbers": [
+            "window.Media"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.statusbar/www/statusbar.js",
+        "id": "org.apache.cordova.statusbar.statusbar",
+        "clobbers": [
+            "window.StatusBar"
+        ]
+    },
+    {
+        "file": "plugins/nl.x-services.plugins.socialsharing/www/SocialSharing.js",
+        "id": "nl.x-services.plugins.socialsharing.SocialSharing",
+        "clobbers": [
+            "window.plugins.socialsharing"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -211,11 +232,13 @@ module.exports.metadata =
     "org.apache.cordova.console": "0.2.13",
     "org.apache.cordova.file": "1.3.3",
     "org.apache.cordova.device": "0.3.0",
-    "org.apache.cordova.statusbar": "0.1.10",
     "org.apache.cordova.inappbrowser": "0.6.1-dev",
     "com.silverorange.now-playing": "1.0.0",
     "nl.kingsquare.cordova.background-audio": "1.0.0",
-    "com.rd11.remote-controls": "1.0.0"
+    "com.rd11.remote-controls": "1.0.0",
+    "org.apache.cordova.media": "0.2.16",
+    "org.apache.cordova.statusbar": "0.1.11-dev",
+    "nl.x-services.plugins.socialsharing": "4.3.15"
 }
 // BOTTOM OF METADATA
 });
