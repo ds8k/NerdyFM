@@ -110,6 +110,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .playorload {
     width: 100%;
     color: white;
+    margin-left:40px;
     text-align: center;
     line-height: 18px;
     font-size: 13px;
@@ -165,20 +166,12 @@ a::before {
 }
 
 .cardHome {
-    width: 26%;
-    height: 30vw;
+    width: 31.33%;
+    height: 35vw;
     float: left;
     margin-top: 2%;
     background-color:grey;
-}
-
-.cardHome:nth-child(3n+4) {
-    clear:both;
-}
-
-.wrapper {
-    width:100%;
-    //margin-left:6%;
+    margin: 1%!important;
 }
 
 .cardHome b {
@@ -186,7 +179,7 @@ a::before {
 }
 
 .cardHome p {
-    font-size:2vw;
+    font-size:2.3vw;
     color: white;
 }
 
@@ -195,7 +188,7 @@ a::before {
 }
 
 .cardHome img {
-    height: 21vw;
+    height: 25vw;
 }
 
 .cardHome .item .item-text {
@@ -208,6 +201,21 @@ a::before {
 .cardHome .item {
     background-color: grey;
     border-color: grey;
+}
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px)
+and (-webkit-min-device-pixel-ratio: 2) { 
+   
+   .cardHome {
+       width: 23%;
+       height: 34vw;
+       float: left;
+       margin-top: 2%;
+       background-color:grey;
+   }
+
 }
 
 .extraBar {
@@ -274,4 +282,11 @@ a::before {
 .popUpImage {
     border-top:0px;
     clear:both;
+}
+
+.imgTrans {
+    opacity:0;
+    -webkit-transition: opacity 1s; /* Safari and Chrome */
+    -o-transition: opacity 1s;
+    transition: opacity 1s;
 }

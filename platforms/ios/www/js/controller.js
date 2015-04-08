@@ -1,100 +1,145 @@
 angular.module('nerdyfm.controller', [])
 
-.controller('AppCtrl', function($scope, $http, $rootScope) {
-
+.controller('AppCtrl', function($rootScope, $scope, $http) {
+    //Grabs the 9 most recently played tracks
+    //If on an iPad, the limit is 8
     $rootScope.getRecent = function() {
         var random = Math.floor((Math.random() * 10000) + 1);
+        var results = $rootScope.iPad ? 8 : 9;
         $http.get('http://streams4.museter.com:2199/external/rpc.php?m=recenttracks.get&username=nerdyfm&charset=&mountpoint=&rid=nerdyfm&limit=9&_=' + random).success(function(data) {
-            $scope.recentTracks = data.data[0];
+            if ($scope.recentTracks !== data.data[0]) {
+                $scope.recentTracks = data.data[0];
+            }
         });
     };
 
     $rootScope.getRecent();
 })
 
-.controller('TrackCtrl', function($scope, $ionicModal, $rootScope) {
+//Controls the track popup
+.controller('TrackCtrl', function($rootScope, $scope, $ionicModal) {
     $ionicModal.fromTemplateUrl('templates/track.html', {
         scope: $scope
     }).then(function(modal) {
         $scope.modal = modal;
     });
 
+    //Reset the statusbar on Android when modal hides
+    $scope.$on('modal.hidden', function(data) {
+        if ($rootScope.operatingSystem === 'Android') {
+            StatusBar.backgroundColorByHexString('#D32F2F');
+        }
+    });
+
+    //Display the track modal
+    //if on Android, also change the statusbar color
     $scope.open = function(record) {
         $scope.record = record;
 
         if ($scope.record.artist) {
             $scope.modal.show();
+
+            if ($rootScope.operatingSystem === 'Android') {
+                StatusBar.backgroundColorByHexString('#730800');
+            }
         }
     };
 
+    //Close the modal
     $scope.close = function() {
         $scope.modal.hide();
     };
 
+    //Add the track to favorites
     $scope.favorite = function() {
-
         var newFavorite = {
             artist: $scope.record.artist,
             title: $scope.record.title,
             cover: $scope.record.image || $scope.record.imageurl,
-            buy: $scope.record.url || $scope.record.buyurl
+            buy: $scope.record.url || $scope.record.buyurl,
+            id: $rootScope.favorites.length
         };
 
+        //Push to the favorites object
         $rootScope.favorites.push(newFavorite);
-        localStorage.favorites = JSON.stringify($rootScope.favorites);
+
+        //Put the new favorite into local storage
+        window.localStorage.favorites = JSON.stringify($rootScope.favorites, function (key, val) {
+             //Angular fix - remove the hashkey it adds
+             if (key == '$$hashKey') {
+                 return undefined;
+             }
+             return val;
+        });
+
+        //close the modal
         $scope.modal.hide();
     };
 })
 
-.controller('FavCtrl', function($scope, $state, $rootScope) {
+//The favorites controller
+.controller('FavCtrl', function($rootScope, $scope, $state) {
+    //Make the list swipable 
     $scope.listCanSwipe = true;
 
+    //Remove song from favorites
     $scope.onDelete = function(record, index) {
         $rootScope.favorites.splice(index, 1);
-        window.localStorage.favorites = JSON.stringify($rootScope.favorites);
+        window.localStorage.favorites = JSON.stringify($rootScope.favorites, function (key, val) {
+             //Angular fix - remove the hashkey it adds
+             if (key == '$$hashKey') {
+                 return undefined;
+             }
+             return val;
+        });
     };
 
-    $scope.openBuy = function(link) {
+    //Opens the buy link from Museter
+    $rootScope.openBuy = function(link) {
         window.open(link, '_system');
     };
 
-    $scope.openSearch = function(record) {
-        window.open('https://www.google.com/#q=' + record.artist + '+' + record.title, '_system');
+    //Does a good search if the song didn't have a buy link
+    $rootScope.openSearch = function(record) {
+        var search = encodeURIComponent(record.artist + ' ' + record.title);
+        window.open('https://www.google.com/#q=' + search, '_system');
     };
 })
 
-.controller('PlayCtrl', function($scope, $http, $interval, $cordovaDevice, $rootScope, $ionicPopup) {
+//Main player controller - THIS THING IS A NIGHTMARE
+.controller('PlayCtrl', function($rootScope, $scope, $http, $interval, $cordovaDevice) {
 
     $rootScope.audio = document.getElementById("audiostream"); //Get our audio element
-    $rootScope.androidAudio = undefined;
-    $rootScope.class = "play"; //Set dumb variable for play button
+    $rootScope.androidAudio = undefined; //Junk Android variable
+    $rootScope.playClass = "play"; //Set dumb variable for play button
     $rootScope.track = {}; //Let the user know what to do
     $rootScope.listener = false; //Dumby boolean for checking event listener status
-    $rootScope.operatingSystem = "iOS"; //$cordovaDevice.getPlatform();
-    $rootScope.trackClass = "playorload";
-    $rootScope.song = "";
+    $rootScope.trackClass = "playorload"; //Default track class
+    $rootScope.song = ""; //Dumb variable for determining current song
 
     //Changes the class of the play button
-    $rootScope.setClass = function() {
-        $rootScope.class = $rootScope.class === "play" ? "pause" : "play";
+    $rootScope.setPlayClass = function() {
+        $rootScope.playClass = $rootScope.playClass === 'play' ? 'pause' : 'play';
     };
 
-    $rootScope.getTrackClass = function() {
-        return $rootScope.trackClass;
-    };
+    // $rootScope.getTrackClass = function() {
+    //     return $rootScope.trackClass;
+    // };
 
     $rootScope.setTrackClass = function() {
-        if ($rootScope.track.imageurl === '') {
-            $rootScope.trackClass = "playorload";
-        } else {
-            $rootScope.trackClass = "cc_streaminfo";
-        }
+        $rootScope.trackClass = $rootScope.track.imageurl === '' ? 'playorload' : 'cc_streaminfo';
+
+        // if ($rootScope.track.imageurl === '') {
+        //     $rootScope.trackClass = "playorload";
+        // } else {
+        //     $rootScope.trackClass = "cc_streaminfo";
+        // }
     };
 
     //Function for the button. Should be self-explanatory
     $rootScope.onClick = function() {
         //Check to see if the event listener is set. If it isn't, add one!
-        if (!$scope.listener) {
+        if (!$rootScope.listener) {
             document.addEventListener("remote-event", function(event) {
                 $rootScope.onClick();
             });
@@ -156,15 +201,11 @@ angular.module('nerdyfm.controller', [])
                 album: '',
                 imageurl: ''
             };
-
-            
-
-            $rootScope.setTrackClass();
         }
 
         //Set the play buttons class
-        $rootScope.song = "";
-        $rootScope.setClass();
+        $rootScope.song = '';
+        $rootScope.setPlayClass();
         $rootScope.setTrackClass();
     };
 
@@ -193,26 +234,26 @@ angular.module('nerdyfm.controller', [])
                 $rootScope.track = data.data[0].track;
                 $rootScope.setTrackClass();
                 $rootScope.getRecent();
+            }
 
-                try {
-                    //Cordova plugin that changes the metadata for iOS lock screen
-                    window.NowPlaying.updateMetas($rootScope.track.artist, $rootScope.track.title, $rootScope.track.album, $rootScope.imageurl);
-                } catch (e) {
-                    // console.log(e);
-                }
+            try {
+                //Cordova plugin that changes the metadata for iOS lock screen
+                window.NowPlaying.updateMetas($rootScope.track.artist, $rootScope.track.title, $rootScope.track.album);
+            } catch (e) {
+                // console.log(e);
             }
         });
     };
 
+    //Share the current track
     $rootScope.share = function(record) {
         record = record ? record : $rootScope.track;
 
-        if (!record.artist) {
-            $ionicPopup.alert({
-                title: 'Nothing is playing!',
-            });
-        } else {
+        try {
+            //Call the share plugin
             window.plugins.socialsharing.share('Check out ' + record.artist + ' - ' + record.title +  ' on Nerdy.FM!', null, null, 'http://www.nerdy.fm');
+        } catch (e) {
+            // console.log(e);
         }
     };
 });

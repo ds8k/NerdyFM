@@ -10,12 +10,16 @@ angular.module('nerdyfm', ['ionic', 'nerdyfm.controller', 'ngCordova'])
         try {
             if ($cordovaDevice.getPlatform() === "iOS") {
                 StatusBar.overlaysWebView(true);
+                $rootScope.operatingSystem = 'iOS';
+                $rootScope.iPad = $cordovaDevice.getModel().indexOf('iPad') > -1 ? true : false;
             } else {
                 StatusBar.overlaysWebView(false);
-                StatusBar.backgroundColorByHexString('#1976D2');
+                StatusBar.backgroundColorByHexString('#D32F2F');
+                $rootScope.operatingSystem = 'Android';
             }
         } catch (e) {
             // console.log(e);
+            $rootScope.operatingSystem = 'iOS';
         }
 
         $rootScope.favorites = window.localStorage.favorites ? JSON.parse(window.localStorage.favorites) : [];

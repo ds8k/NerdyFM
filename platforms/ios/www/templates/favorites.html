@@ -3,7 +3,7 @@
     <div class="emptyText" ng-hide="favorites.length">You don't have any favorites.<br>Are you not impressed?</div>
         <ion-list can-swipe="true">
             <ion-item class="item-thumbnail-left item-remove-animate" ng-repeat="fav in favorites">
-                <img ng-src="{{fav.cover}}">
+                <img onload="this.style.opacity='1';" class="imgTrans" ng-src="{{fav.cover}}">
                 <h2>{{fav.title}}</h2>
                 <p>{{fav.artist}}</p>
                 </a>
@@ -22,7 +22,8 @@
         </ion-list>
     </ion-content>
     <ion-footer-bar class="bottom bar-dark middleBar" style="bottom:0px;">
-        <div ng-class="getTrackClass()" ng-controller="TrackCtrl" ng-click="open(track)">
+        <!-- <div ng-class="getTrackClass()" ng-controller="TrackCtrl" ng-click="open(track)"> -->
+        <div class="{{trackClass}}" ng-controller="TrackCtrl" ng-click="open(track)">
             <img ng-src="{{track.imageurl}}" ng-show="track.imageurl!==''">
                 <div class="trackWrap">
                     {{track.artist}}<br>
@@ -30,6 +31,6 @@
                     {{track.album}}
                 </div>
         </div>
-        <a class="button button-icon icon ion-{{class}}" ng-click="onClick()"></a>
+        <a class="button button-icon icon ion-{{playClass}}" ng-click="onClick()"></a>
     </ion-footer-bar>
 </ion-view>

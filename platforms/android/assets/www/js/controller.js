@@ -1,83 +1,175 @@
 angular.module('nerdyfm.controller', [])
 
-.controller('PlayCtrl', function($scope, $http, $interval, $cordovaDevice) {
+.controller('AppCtrl', function($scope, $http, $rootScope) {
 
-    $scope.audio = document.getElementById("audiostream"); //Get our audio element
-    $scope.androidAudio = undefined;
-    $scope.class = "play"; //Set dumb variable for play button
-    $scope.track = { title: 'Click play!' }; //Let the user know what to do
-    $scope.listener = false; //Dumby boolean for checking event listener status
-
-    //Used to tell the button which CSS class to display on the frontend
-    $scope.getClass = function() {
-        return $scope.class;
+    $rootScope.getRecent = function() {
+        var random = Math.floor((Math.random() * 10000) + 1);
+        var results = $rootScope.iPad ? 8 : 9;
+        $http.get('http://streams4.museter.com:2199/external/rpc.php?m=recenttracks.get&username=nerdyfm&charset=&mountpoint=&rid=nerdyfm&limit=9&_=' + random).success(function(data) {
+            if ($scope.recentTracks !== data.data[0]) {
+                $scope.recentTracks = data.data[0];
+            }
+        });
     };
 
+    $rootScope.getRecent();
+})
+
+.controller('TrackCtrl', function($scope, $ionicModal, $rootScope) {
+    $ionicModal.fromTemplateUrl('templates/track.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.$on('modal.hidden', function(data) {
+        if ($rootScope.operatingSystem === 'Android') {
+            StatusBar.backgroundColorByHexString('#D32F2F');
+        }
+    });
+
+    $scope.open = function(record) {
+        $scope.record = record;
+
+        if ($scope.record.artist) {
+            $scope.modal.show();
+
+            if ($rootScope.operatingSystem === 'Android') {
+                StatusBar.backgroundColorByHexString('#730800');
+            }
+        }
+    };
+
+    $scope.close = function() {
+        $scope.modal.hide();
+    };
+
+    $scope.favorite = function() {
+
+        var newFavorite = {
+            artist: $scope.record.artist,
+            title: $scope.record.title,
+            cover: $scope.record.image || $scope.record.imageurl,
+            buy: $scope.record.url || $scope.record.buyurl,
+            id: $rootScope.favorites.length
+        };
+
+        $rootScope.favorites.push(newFavorite);
+        localStorage.favorites = JSON.stringify($rootScope.favorites, function (key, val) {
+             if (key == '$$hashKey') {
+                 return undefined;
+             }
+             return val;
+        });
+        $scope.modal.hide();
+    };
+})
+
+.controller('FavCtrl', function($scope, $state, $rootScope) {
+    $scope.listCanSwipe = true;
+
+    $scope.onDelete = function(record, index) {
+        $rootScope.favorites.splice(index, 1);
+        window.localStorage.favorites = JSON.stringify($rootScope.favorites);
+    };
+
+    $rootScope.openBuy = function(link) {
+        window.open(link, '_system');
+    };
+
+    $rootScope.openSearch = function(record) {
+        var search = encodeURIComponent(record.artist + ' ' + record.title);
+        window.open('https://www.google.com/#q=' + search, '_system');
+    };
+})
+
+.controller('PlayCtrl', function($scope, $http, $interval, $rootScope, $cordovaDevice, $ionicPopup) {
+
+    $rootScope.audio = document.getElementById("audiostream"); //Get our audio element
+    $rootScope.androidAudio = undefined;
+    $rootScope.class = "play"; //Set dumb variable for play button
+    $rootScope.track = {}; //Let the user know what to do
+    $rootScope.listener = false; //Dumby boolean for checking event listener status
+    $rootScope.trackClass = "playorload";
+    $rootScope.song = "";
+
     //Changes the class of the play button
-    $scope.setClass = function() {
-        $scope.class = $scope.class === "play" ? "pause" : "play";
+    $rootScope.setClass = function() {
+        $rootScope.class = $rootScope.class === "play" ? "pause" : "play";
+    };
+
+    $rootScope.getTrackClass = function() {
+        return $rootScope.trackClass;
+    };
+
+    $rootScope.setTrackClass = function() {
+        if ($rootScope.track.imageurl === '') {
+            $rootScope.trackClass = "playorload";
+        } else {
+            $rootScope.trackClass = "cc_streaminfo";
+        }
     };
 
     //Function for the button. Should be self-explanatory
-    $scope.onClick = function() {
-    	//Check to see if the event listener is set. If it isn't, add one!
-    	if(!$scope.listener) {
-    		document.addEventListener("remote-event", function(event) {
-				$scope.onClick();
-			});
+    $rootScope.onClick = function() {
+        //Check to see if the event listener is set. If it isn't, add one!
+        if (!$scope.listener) {
+            document.addEventListener("remote-event", function(event) {
+                $rootScope.onClick();
+            });
 
-			$scope.listener = true;
-    	}
+            $rootScope.listener = true;
+        }
 
-    	if($cordovaDevice.getPlatform() === 'iOS' && $scope.audio.paused) {
+        if ($rootScope.operatingSystem === 'iOS' && $rootScope.audio.paused) {
 
-    		//Change the track object. Kind of crappy but it works
-            $scope.track = {
+            //Change the track object. Kind of crappy but it works
+            $rootScope.track = {
                 artist: '',
                 title: 'Loading...',
                 album: '',
                 imageurl: ''
             };
 
-    		//Set the source
-    		$scope.audio.src = 'http://streams4.museter.com:8344/;stream.nsv';
-            $scope.audio.load(); //Reload the stream. Gets the user up-to-date with the stream
-            $scope.audio.play(); //Finally, play it
+            //Set the source
+            $rootScope.audio.src = 'http://streams4.museter.com:8344/;stream.nsv';
+            $rootScope.audio.load(); //Reload the stream. Gets the user up-to-date with the stream
+            $rootScope.audio.play(); //Finally, play it
 
             //Get the current streaming song. This function will change the track object
-            $scope.getListing();
-            $scope.startInterval();
+            $rootScope.getListing();
+            $rootScope.startInterval();
 
-    	} else if($cordovaDevice.getPlatform() === 'Android' && !$scope.androidAudio) {
+        } else if ($rootScope.operatingSystem === 'Android' && !$rootScope.androidAudio) {
 
-    		//Change the track object. Kind of crappy but it works
-            $scope.track = {
+            //Change the track object. Kind of crappy but it works
+            $rootScope.track = {
                 artist: '',
                 title: 'Loading...',
                 album: '',
                 imageurl: ''
             };
 
-        	$scope.androidAudio = new Media('http://streams4.museter.com:8344/;stream.nsv');
-        	$scope.androidAudio.play();
-            $scope.getListing();
-            $scope.startInterval();
+            $rootScope.androidAudio = new Media('http://streams4.museter.com:8344/;stream.nsv');
+            $rootScope.androidAudio.play();
+            $rootScope.getListing();
+            $rootScope.startInterval();
 
-    	} else {
-    		if($cordovaDevice.getPlatform() === 'iOS') {
-    			$scope.audio.pause(); //Pause the song
-            	$scope.audio.src = '';//Remove the source (stops the streaming)
-    		} else {
-    			$scope.androidAudio.stop();
-    			$scope.androidAudio.release();
-        		$scope.androidAudio = undefined;
-    		}
+        } else {
+            if ($rootScope.operatingSystem === 'iOS') {
+                $rootScope.audio.pause(); //Pause the song
+                $rootScope.audio.src = ''; //Remove the source (stops the streaming)
+            } else {
+                $rootScope.androidAudio.stop();
+                $rootScope.androidAudio.release();
+                $rootScope.androidAudio = undefined;
+            }
 
-            $interval.cancel($scope.stop); //Cancel the interval
-            $scope.stop = undefined; //Set interval object to undefined
+            $interval.cancel($rootScope.stop); //Cancel the interval
+            $rootScope.stop = undefined; //Set interval object to undefined
 
             //Reset the track object
-            $scope.track = {
+            $rootScope.track = {
                 artist: '',
                 title: 'Click play!',
                 album: '',
@@ -86,43 +178,56 @@ angular.module('nerdyfm.controller', [])
         }
 
         //Set the play buttons class
-        $scope.setClass();
+        $rootScope.song = "";
+        $rootScope.setClass();
+        $rootScope.setTrackClass();
     };
 
     //Set a 15 second interval to check if the current song has changed
-	//If an interval is already set then we're already playing.
-    $scope.startInterval = function() {
-        if (angular.isDefined($scope.stop)) {
-        	return;
+    //If an interval is already set then we're already playing.
+    $rootScope.startInterval = function() {
+        if (angular.isDefined($rootScope.stop)) {
+            return;
         } else {
-        	$scope.stop = $interval(function() {
-		        $scope.getListing();
-		    }, 15000);
+            $rootScope.stop = $interval(function() {
+                $rootScope.getListing();
+            }, 15000);
         }
     };
 
     //This function generates a random number and checks the current streaming song
     //Random number is necessary, otherwise we'd run into cached requests
-    $scope.getListing = function() {
+    $rootScope.getListing = function() {
         var random = Math.floor((Math.random() * 10000) + 1);
         $http.get('http://streams4.museter.com:2199/external/rpc.php?m=streaminfo.get&username=nerdyfm&charset=&mountpoint=&rid=nerdyfm&_=' + random).success(function(data) {
+
             //If the song is different then change it
-            if ($scope.track !== data.data[0].track) {
-            	$scope.track = data.data[0].track;
+            if ($rootScope.song !== data.data[0].song) {
 
-            	var params = [$scope.track.artist, $scope.track.title, $scope.track.album, $scope.track.imageurl];
+                $rootScope.song = data.data[0].song;
+                $rootScope.track = data.data[0].track;
+                $rootScope.setTrackClass();
+                $rootScope.getRecent();
+            }
 
-            	try {
-            		//Cordova plugin that changes the metadata for iOS lock screen
-            		window.NowPlaying.updateMetas($scope.track.artist, $scope.track.title, $scope.track.album);
-            	} catch (e) {
-            		console.log(e);
-            	}
+            try {
+                //Cordova plugin that changes the metadata for iOS lock screen
+                window.NowPlaying.updateMetas($rootScope.track.artist, $rootScope.track.title, $rootScope.track.album);
+            } catch (e) {
+                // console.log(e);
             }
         });
     };
 
-    $scope.share = function() {
-        window.plugins.socialsharing.share('I\'m jamming to ' + $scope.track.artist + ' - ' + $scope.track.title +  ' on Nerdy.FM!', null, null, 'http://www.nerdy.fm');
+    $rootScope.share = function(record) {
+        record = record ? record : $rootScope.track;
+
+        if (!record.artist) {
+            $ionicPopup.alert({
+                title: 'Nothing is playing!',
+            });
+        } else {
+            window.plugins.socialsharing.share('Check out ' + record.artist + ' - ' + record.title +  ' on Nerdy.FM!', null, null, 'http://www.nerdy.fm');
+        }
     };
 });
