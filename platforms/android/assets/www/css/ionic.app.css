@@ -7679,6 +7679,7 @@ a.button {
 .playorload {
   width: 100%;
   color: white;
+  margin-left: 40px;
   text-align: center;
   line-height: 18px;
   font-size: 13px; }

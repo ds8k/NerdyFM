@@ -1,7 +1,8 @@
 angular.module('nerdyfm.controller', [])
 
-.controller('AppCtrl', function($scope, $http, $rootScope) {
-
+.controller('AppCtrl', function($rootScope, $scope, $http) {
+    //Grabs the 9 most recently played tracks
+    //If on an iPad, the limit is 8
     $rootScope.getRecent = function() {
         var random = Math.floor((Math.random() * 10000) + 1);
         var results = $rootScope.iPad ? 8 : 9;
@@ -15,19 +16,23 @@ angular.module('nerdyfm.controller', [])
     $rootScope.getRecent();
 })
 
-.controller('TrackCtrl', function($scope, $ionicModal, $rootScope) {
+//Controls the track popup
+.controller('TrackCtrl', function($rootScope, $scope, $ionicModal) {
     $ionicModal.fromTemplateUrl('templates/track.html', {
         scope: $scope
     }).then(function(modal) {
         $scope.modal = modal;
     });
 
+    //Reset the statusbar on Android when modal hides
     $scope.$on('modal.hidden', function(data) {
         if ($rootScope.operatingSystem === 'Android') {
             StatusBar.backgroundColorByHexString('#D32F2F');
         }
     });
 
+    //Display the track modal
+    //if on Android, also change the statusbar color
     $scope.open = function(record) {
         $scope.record = record;
 
@@ -40,12 +45,13 @@ angular.module('nerdyfm.controller', [])
         }
     };
 
+    //Close the modal
     $scope.close = function() {
         $scope.modal.hide();
     };
 
+    //Add the track to favorites
     $scope.favorite = function() {
-
         var newFavorite = {
             artist: $scope.record.artist,
             title: $scope.record.title,
@@ -54,66 +60,77 @@ angular.module('nerdyfm.controller', [])
             id: $rootScope.favorites.length
         };
 
+        //Push to the favorites object
         $rootScope.favorites.push(newFavorite);
-        localStorage.favorites = JSON.stringify($rootScope.favorites, function (key, val) {
+
+        //Put the new favorite into local storage
+        window.localStorage.favorites = JSON.stringify($rootScope.favorites, function (key, val) {
+             //Angular fix - remove the hashkey it adds
              if (key == '$$hashKey') {
                  return undefined;
              }
              return val;
         });
+
+        //close the modal
         $scope.modal.hide();
     };
 })
 
-.controller('FavCtrl', function($scope, $state, $rootScope) {
+//The favorites controller
+.controller('FavCtrl', function($rootScope, $scope, $state) {
+    //Make the list swipable 
     $scope.listCanSwipe = true;
 
+    //Remove song from favorites
     $scope.onDelete = function(record, index) {
         $rootScope.favorites.splice(index, 1);
-        window.localStorage.favorites = JSON.stringify($rootScope.favorites);
+        window.localStorage.favorites = JSON.stringify($rootScope.favorites, function (key, val) {
+             //Angular fix - remove the hashkey it adds
+             if (key == '$$hashKey') {
+                 return undefined;
+             }
+             return val;
+        });
     };
 
+    //Opens the buy link from Museter
     $rootScope.openBuy = function(link) {
         window.open(link, '_system');
     };
 
+    //Does a good search if the song didn't have a buy link
     $rootScope.openSearch = function(record) {
         var search = encodeURIComponent(record.artist + ' ' + record.title);
         window.open('https://www.google.com/#q=' + search, '_system');
     };
 })
 
-.controller('PlayCtrl', function($scope, $http, $interval, $rootScope, $cordovaDevice, $ionicPopup) {
+//Main player controller - THIS THING IS A NIGHTMARE
+.controller('PlayCtrl', function($rootScope, $scope, $http, $interval, $cordovaDevice) {
 
-    $rootScope.audio = document.getElementById("audiostream"); //Get our audio element
-    $rootScope.androidAudio = undefined;
-    $rootScope.class = "play"; //Set dumb variable for play button
-    $rootScope.track = {}; //Let the user know what to do
-    $rootScope.listener = false; //Dumby boolean for checking event listener status
-    $rootScope.trackClass = "playorload";
-    $rootScope.song = "";
+    $rootScope.audio = $rootScope.audio ? $rootScope.audio : document.getElementById("audiostream"); //Get our audio element
+    $rootScope.androidAudio = $rootScope.androidAudio ? $rootScope.androidAudio : undefined; //Junk Android variable
+    $rootScope.playClass = $rootScope.playClass ? $rootScope.playClass : "play"; //Set dumb variable for play button
+    $rootScope.track = $rootScope.track ? $rootScope.track : {}; //Let the user know what to do
+    $rootScope.listener = $rootScope.listener ? $rootScope.listener : false; //Dumby boolean for checking event listener status
+    $rootScope.trackClass = $rootScope.trackClass ? $rootScope.trackClass : "playorload"; //Default track class
+    $rootScope.song = $rootScope.song ? $rootScope.song : ''; //Dumb variable for determining current song
 
     //Changes the class of the play button
-    $rootScope.setClass = function() {
-        $rootScope.class = $rootScope.class === "play" ? "pause" : "play";
+    $rootScope.setPlayClass = function() {
+        $rootScope.playClass = $rootScope.playClass === 'play' ? 'pause' : 'play';
     };
 
-    $rootScope.getTrackClass = function() {
-        return $rootScope.trackClass;
-    };
-
+    //Set track class
     $rootScope.setTrackClass = function() {
-        if ($rootScope.track.imageurl === '') {
-            $rootScope.trackClass = "playorload";
-        } else {
-            $rootScope.trackClass = "cc_streaminfo";
-        }
+        $rootScope.trackClass = $rootScope.track.imageurl === '' ? 'playorload' : 'cc_streaminfo';
     };
 
     //Function for the button. Should be self-explanatory
     $rootScope.onClick = function() {
         //Check to see if the event listener is set. If it isn't, add one!
-        if (!$scope.listener) {
+        if (!$rootScope.listener) {
             document.addEventListener("remote-event", function(event) {
                 $rootScope.onClick();
             });
@@ -150,19 +167,20 @@ angular.module('nerdyfm.controller', [])
                 imageurl: ''
             };
 
+            //Android audio junk
             $rootScope.androidAudio = new Media('http://streams4.museter.com:8344/;stream.nsv');
-            $rootScope.androidAudio.play();
-            $rootScope.getListing();
-            $rootScope.startInterval();
+            $rootScope.androidAudio.play(); //play the audio
+            $rootScope.getListing(); //Get the current playing song
+            $rootScope.startInterval();//Start the update interval
 
         } else {
             if ($rootScope.operatingSystem === 'iOS') {
                 $rootScope.audio.pause(); //Pause the song
                 $rootScope.audio.src = ''; //Remove the source (stops the streaming)
             } else {
-                $rootScope.androidAudio.stop();
-                $rootScope.androidAudio.release();
-                $rootScope.androidAudio = undefined;
+                $rootScope.androidAudio.stop(); //Stop
+                $rootScope.androidAudio.release(); //Release the android audio
+                $rootScope.androidAudio = undefined; //Reset the audio variable
             }
 
             $interval.cancel($rootScope.stop); //Cancel the interval
@@ -175,12 +193,12 @@ angular.module('nerdyfm.controller', [])
                 album: '',
                 imageurl: ''
             };
+
+            $rootScope.song = ''; //Reset song variable
         }
 
-        //Set the play buttons class
-        $rootScope.song = "";
-        $rootScope.setClass();
-        $rootScope.setTrackClass();
+        $rootScope.setPlayClass(); //Set the play button class
+        $rootScope.setTrackClass(); //Set the track class
     };
 
     //Set a 15 second interval to check if the current song has changed
@@ -199,8 +217,8 @@ angular.module('nerdyfm.controller', [])
     //Random number is necessary, otherwise we'd run into cached requests
     $rootScope.getListing = function() {
         var random = Math.floor((Math.random() * 10000) + 1);
-        $http.get('http://streams4.museter.com:2199/external/rpc.php?m=streaminfo.get&username=nerdyfm&charset=&mountpoint=&rid=nerdyfm&_=' + random).success(function(data) {
 
+        $http.get('http://streams4.museter.com:2199/external/rpc.php?m=streaminfo.get&username=nerdyfm&charset=&mountpoint=&rid=nerdyfm&_=' + random).success(function(data) {
             //If the song is different then change it
             if ($rootScope.song !== data.data[0].song) {
 
@@ -219,15 +237,15 @@ angular.module('nerdyfm.controller', [])
         });
     };
 
+    //Share the current track
     $rootScope.share = function(record) {
         record = record ? record : $rootScope.track;
 
-        if (!record.artist) {
-            $ionicPopup.alert({
-                title: 'Nothing is playing!',
-            });
-        } else {
+        try {
+            //Call the share plugin
             window.plugins.socialsharing.share('Check out ' + record.artist + ' - ' + record.title +  ' on Nerdy.FM!', null, null, 'http://www.nerdy.fm');
+        } catch (e) {
+            // console.log(e);
         }
     };
 });

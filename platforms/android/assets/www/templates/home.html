@@ -22,7 +22,8 @@
         </ion-footer-bar>
     </ion-pane>
     <ion-footer-bar class="bottom bar-dark middleBar">
-        <div ng-class="getTrackClass()" ng-controller="TrackCtrl" ng-click="open(track)">
+        <!-- <div ng-class="getTrackClass()" ng-controller="TrackCtrl" ng-click="open(track)"> -->
+        <div class="{{trackClass}}" ng-controller="TrackCtrl" ng-click="open(track)">
             <img ng-src="{{track.imageurl}}" ng-show="track.imageurl!==''">
             <div class="trackWrap">
                 {{track.artist}}<br>
@@ -30,7 +31,7 @@
                 {{track.album}}
             </div>
         </div>
-        <a class="button button-icon icon ion-{{class}}" ng-click="onClick()"></a>
+        <a class="button button-icon icon ion-{{playClass}}" ng-click="onClick()"></a>
     </ion-footer-bar>
     <ion-footer-bar class="bottom bar-footer bar-positive extraBar">
         <div class="button-bar">
