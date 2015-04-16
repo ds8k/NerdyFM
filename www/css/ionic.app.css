@@ -7728,7 +7728,7 @@ a::before {
 
 .cardHome {
   width: 31.33%;
-  height: 35vw;
+  height: 37vw;
   float: left;
   margin-top: 2%;
   background-color: grey;
@@ -7745,7 +7745,7 @@ a::before {
   line-height: 2.5vw !important; }
 
 .cardHome img {
-  height: 25vw; }
+  height: 28vw; }
 
 .cardHome .item .item-text {
   padding-top: 2vw !important;
@@ -7763,7 +7763,9 @@ a::before {
     height: 34vw;
     float: left;
     margin-top: 2%;
-    background-color: grey; } }
+    background-color: grey; }
+  .cardHome img {
+    height: 24vw; } }
 
 .extraBar {
   height: 44px; }

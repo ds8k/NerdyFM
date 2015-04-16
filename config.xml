@@ -12,6 +12,7 @@
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="3000"/>
   <preference name="StatusBarStyle" value="lightcontent"/>
+  <preference name="Orientation" value="portrait" />
   <platform name="android">
     <splash src="resources/android/splash/drawable-land-ldpi-screen.png" density="land-ldpi"/>
     <splash src="resources/android/splash/drawable-land-mdpi-screen.png" density="land-mdpi"/>

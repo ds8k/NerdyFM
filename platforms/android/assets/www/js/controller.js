@@ -107,7 +107,7 @@ angular.module('nerdyfm.controller', [])
 })
 
 //Main player controller - THIS THING IS A NIGHTMARE
-.controller('PlayCtrl', function($rootScope, $scope, $http, $interval, $cordovaDevice) {
+.controller('PlayCtrl', function($rootScope, $scope, $http, $interval) {
 
     $rootScope.audio = $rootScope.audio ? $rootScope.audio : document.getElementById("audiostream"); //Get our audio element
     $rootScope.androidAudio = $rootScope.androidAudio ? $rootScope.androidAudio : undefined; //Junk Android variable
@@ -138,8 +138,7 @@ angular.module('nerdyfm.controller', [])
             $rootScope.listener = true;
         }
 
-        if ($rootScope.operatingSystem === 'iOS' && $rootScope.audio.paused) {
-
+        if ($rootScope.playClass === 'play') {
             //Change the track object. Kind of crappy but it works
             $rootScope.track = {
                 artist: '',
@@ -147,31 +146,10 @@ angular.module('nerdyfm.controller', [])
                 album: '',
                 imageurl: ''
             };
-
-            //Set the source
-            $rootScope.audio.src = 'http://streams4.museter.com:8344/;stream.nsv';
-            $rootScope.audio.load(); //Reload the stream. Gets the user up-to-date with the stream
-            $rootScope.audio.play(); //Finally, play it
 
             //Get the current streaming song. This function will change the track object
             $rootScope.getListing();
             $rootScope.startInterval();
-
-        } else if ($rootScope.operatingSystem === 'Android' && !$rootScope.androidAudio) {
-
-            //Change the track object. Kind of crappy but it works
-            $rootScope.track = {
-                artist: '',
-                title: 'Loading...',
-                album: '',
-                imageurl: ''
-            };
-
-            //Android audio junk
-            $rootScope.androidAudio = new Media('http://streams4.museter.com:8344/;stream.nsv');
-            $rootScope.androidAudio.play(); //play the audio
-            $rootScope.getListing(); //Get the current playing song
-            $rootScope.startInterval();//Start the update interval
 
         } else {
             if ($rootScope.operatingSystem === 'iOS') {
@@ -218,23 +196,45 @@ angular.module('nerdyfm.controller', [])
     $rootScope.getListing = function() {
         var random = Math.floor((Math.random() * 10000) + 1);
 
-        $http.get('http://streams4.museter.com:2199/external/rpc.php?m=streaminfo.get&username=nerdyfm&charset=&mountpoint=&rid=nerdyfm&_=' + random).success(function(data) {
-            //If the song is different then change it
-            if ($rootScope.song !== data.data[0].song) {
+        $http.get('http://streams4.museter.com:2199/external/rpc.php?m=streaminfo.get&username=nerdyfm&charset=&mountpoint=&rid=nerdyfm&_=' + random)
+            .success(function(data) {
+                //If the song is different then change it
+                if ($rootScope.song !== data.data[0].song) {
 
-                $rootScope.song = data.data[0].song;
-                $rootScope.track = data.data[0].track;
-                $rootScope.setTrackClass();
-                $rootScope.getRecent();
-            }
+                    $rootScope.song = data.data[0].song;
+                    $rootScope.track = data.data[0].track;
+                    $rootScope.setTrackClass();
+                    $rootScope.getRecent();
 
-            try {
-                //Cordova plugin that changes the metadata for iOS lock screen
-                window.NowPlaying.updateMetas($rootScope.track.artist, $rootScope.track.title, $rootScope.track.album);
-            } catch (e) {
-                // console.log(e);
-            }
-        });
+                    if ($rootScope.operatingSystem === 'iOS' && $rootScope.audio.paused) {
+                        $rootScope.audio.src = 'http://streams4.museter.com:8344/;stream.nsv';
+                        $rootScope.audio.load(); //Reload the stream. Gets the user up-to-date with the stream
+                        $rootScope.audio.play(); //Finally, play it
+
+                    } else if ($rootScope.operatingSystem === 'Android' && !$rootScope.androidAudio) {
+                        $rootScope.androidAudio = new Media('http://streams4.museter.com:8344/;stream.nsv');
+                        $rootScope.androidAudio.play([$rootScope.track.artist, $rootScope.track.title, $rootScope.track.album, $rootScope.track.imageurl]); //play the audio
+                    }
+
+                    try {
+                        //Cordova plugin that changes the metadata for iOS lock screen
+                        window.NowPlaying.updateMetas($rootScope.track.artist, $rootScope.track.title, $rootScope.track.album);
+
+                        //Android notification player
+                        $rootScope.androidAudio.updateAndroidNotification([$rootScope.track.artist, $rootScope.track.title, $rootScope.track.album, $rootScope.track.imageurl]);
+                    } catch (e) {
+                        // console.log(e);
+                    }
+                }
+            })
+            .error(function(data) {
+                $rootScope.track = {
+                    artist: '',
+                    title: 'An error occurred! Try again?',
+                    album: '',
+                    imageurl: ''
+                };
+            });
     };
 
     //Share the current track

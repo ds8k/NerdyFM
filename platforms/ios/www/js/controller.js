@@ -107,33 +107,24 @@ angular.module('nerdyfm.controller', [])
 })
 
 //Main player controller - THIS THING IS A NIGHTMARE
-.controller('PlayCtrl', function($rootScope, $scope, $http, $interval, $cordovaDevice) {
+.controller('PlayCtrl', function($rootScope, $scope, $http, $interval) {
 
-    $rootScope.audio = document.getElementById("audiostream"); //Get our audio element
-    $rootScope.androidAudio = undefined; //Junk Android variable
-    $rootScope.playClass = "play"; //Set dumb variable for play button
-    $rootScope.track = {}; //Let the user know what to do
-    $rootScope.listener = false; //Dumby boolean for checking event listener status
-    $rootScope.trackClass = "playorload"; //Default track class
-    $rootScope.song = ""; //Dumb variable for determining current song
+    $rootScope.audio = $rootScope.audio ? $rootScope.audio : document.getElementById("audiostream"); //Get our audio element
+    $rootScope.androidAudio = $rootScope.androidAudio ? $rootScope.androidAudio : undefined; //Junk Android variable
+    $rootScope.playClass = $rootScope.playClass ? $rootScope.playClass : "play"; //Set dumb variable for play button
+    $rootScope.track = $rootScope.track ? $rootScope.track : {}; //Let the user know what to do
+    $rootScope.listener = $rootScope.listener ? $rootScope.listener : false; //Dumby boolean for checking event listener status
+    $rootScope.trackClass = $rootScope.trackClass ? $rootScope.trackClass : "playorload"; //Default track class
+    $rootScope.song = $rootScope.song ? $rootScope.song : ''; //Dumb variable for determining current song
 
     //Changes the class of the play button
     $rootScope.setPlayClass = function() {
         $rootScope.playClass = $rootScope.playClass === 'play' ? 'pause' : 'play';
     };
 
-    // $rootScope.getTrackClass = function() {
-    //     return $rootScope.trackClass;
-    // };
-
+    //Set track class
     $rootScope.setTrackClass = function() {
         $rootScope.trackClass = $rootScope.track.imageurl === '' ? 'playorload' : 'cc_streaminfo';
-
-        // if ($rootScope.track.imageurl === '') {
-        //     $rootScope.trackClass = "playorload";
-        // } else {
-        //     $rootScope.trackClass = "cc_streaminfo";
-        // }
     };
 
     //Function for the button. Should be self-explanatory
@@ -147,8 +138,7 @@ angular.module('nerdyfm.controller', [])
             $rootScope.listener = true;
         }
 
-        if ($rootScope.operatingSystem === 'iOS' && $rootScope.audio.paused) {
-
+        if ($rootScope.playClass === 'play') {
             //Change the track object. Kind of crappy but it works
             $rootScope.track = {
                 artist: '',
@@ -156,28 +146,8 @@ angular.module('nerdyfm.controller', [])
                 album: '',
                 imageurl: ''
             };
-
-            //Set the source
-            $rootScope.audio.src = 'http://streams4.museter.com:8344/;stream.nsv';
-            $rootScope.audio.load(); //Reload the stream. Gets the user up-to-date with the stream
-            $rootScope.audio.play(); //Finally, play it
 
             //Get the current streaming song. This function will change the track object
-            $rootScope.getListing();
-            $rootScope.startInterval();
-
-        } else if ($rootScope.operatingSystem === 'Android' && !$rootScope.androidAudio) {
-
-            //Change the track object. Kind of crappy but it works
-            $rootScope.track = {
-                artist: '',
-                title: 'Loading...',
-                album: '',
-                imageurl: ''
-            };
-
-            $rootScope.androidAudio = new Media('http://streams4.museter.com:8344/;stream.nsv');
-            $rootScope.androidAudio.play();
             $rootScope.getListing();
             $rootScope.startInterval();
 
@@ -186,9 +156,9 @@ angular.module('nerdyfm.controller', [])
                 $rootScope.audio.pause(); //Pause the song
                 $rootScope.audio.src = ''; //Remove the source (stops the streaming)
             } else {
-                $rootScope.androidAudio.stop();
-                $rootScope.androidAudio.release();
-                $rootScope.androidAudio = undefined;
+                $rootScope.androidAudio.stop(); //Stop
+                $rootScope.androidAudio.release(); //Release the android audio
+                $rootScope.androidAudio = undefined; //Reset the audio variable
             }
 
             $interval.cancel($rootScope.stop); //Cancel the interval
@@ -201,12 +171,12 @@ angular.module('nerdyfm.controller', [])
                 album: '',
                 imageurl: ''
             };
+
+            $rootScope.song = ''; //Reset song variable
         }
 
-        //Set the play buttons class
-        $rootScope.song = '';
-        $rootScope.setPlayClass();
-        $rootScope.setTrackClass();
+        $rootScope.setPlayClass(); //Set the play button class
+        $rootScope.setTrackClass(); //Set the track class
     };
 
     //Set a 15 second interval to check if the current song has changed
@@ -225,24 +195,46 @@ angular.module('nerdyfm.controller', [])
     //Random number is necessary, otherwise we'd run into cached requests
     $rootScope.getListing = function() {
         var random = Math.floor((Math.random() * 10000) + 1);
-        $http.get('http://streams4.museter.com:2199/external/rpc.php?m=streaminfo.get&username=nerdyfm&charset=&mountpoint=&rid=nerdyfm&_=' + random).success(function(data) {
 
-            //If the song is different then change it
-            if ($rootScope.song !== data.data[0].song) {
+        $http.get('http://streams4.museter.com:2199/external/rpc.php?m=streaminfo.get&username=nerdyfm&charset=&mountpoint=&rid=nerdyfm&_=' + random)
+            .success(function(data) {
+                //If the song is different then change it
+                if ($rootScope.song !== data.data[0].song) {
 
-                $rootScope.song = data.data[0].song;
-                $rootScope.track = data.data[0].track;
-                $rootScope.setTrackClass();
-                $rootScope.getRecent();
-            }
+                    $rootScope.song = data.data[0].song;
+                    $rootScope.track = data.data[0].track;
+                    $rootScope.setTrackClass();
+                    $rootScope.getRecent();
 
-            try {
-                //Cordova plugin that changes the metadata for iOS lock screen
-                window.NowPlaying.updateMetas($rootScope.track.artist, $rootScope.track.title, $rootScope.track.album);
-            } catch (e) {
-                // console.log(e);
-            }
-        });
+                    if ($rootScope.operatingSystem === 'iOS' && $rootScope.audio.paused) {
+                        $rootScope.audio.src = 'http://streams4.museter.com:8344/;stream.nsv';
+                        $rootScope.audio.load(); //Reload the stream. Gets the user up-to-date with the stream
+                        $rootScope.audio.play(); //Finally, play it
+
+                    } else if ($rootScope.operatingSystem === 'Android' && !$rootScope.androidAudio) {
+                        $rootScope.androidAudio = new Media('http://streams4.museter.com:8344/;stream.nsv');
+                        $rootScope.androidAudio.play([$rootScope.track.artist, $rootScope.track.title, $rootScope.track.album, $rootScope.track.imageurl]); //play the audio
+                    }
+
+                    try {
+                        //Cordova plugin that changes the metadata for iOS lock screen
+                        window.NowPlaying.updateMetas($rootScope.track.artist, $rootScope.track.title, $rootScope.track.album);
+
+                        //Android notification player
+                        $rootScope.androidAudio.updateAndroidNotification([$rootScope.track.artist, $rootScope.track.title, $rootScope.track.album, $rootScope.track.imageurl]);
+                    } catch (e) {
+                        // console.log(e);
+                    }
+                }
+            })
+            .error(function(data) {
+                $rootScope.track = {
+                    artist: '',
+                    title: 'An error occurred! Try again?',
+                    album: '',
+                    imageurl: ''
+                };
+            });
     };
 
     //Share the current track
