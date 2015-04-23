@@ -223,6 +223,13 @@ module.exports = [
         "clobbers": [
             "window.plugins.socialsharing"
         ]
+    },
+    {
+        "file": "plugins/com.danielcwilson.plugins.googleanalytics/www/analytics.js",
+        "id": "com.danielcwilson.plugins.googleanalytics.UniversalAnalytics",
+        "clobbers": [
+            "analytics"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -238,7 +245,8 @@ module.exports.metadata =
     "com.rd11.remote-controls": "1.0.0",
     "org.apache.cordova.media": "0.2.16",
     "org.apache.cordova.statusbar": "0.1.11-dev",
-    "nl.x-services.plugins.socialsharing": "4.3.15"
+    "nl.x-services.plugins.socialsharing": "4.3.15",
+    "com.danielcwilson.plugins.googleanalytics": "0.7.0"
 }
 // BOTTOM OF METADATA
 });

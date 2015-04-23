@@ -22,6 +22,13 @@ angular.module('nerdyfm', ['ionic', 'nerdyfm.controller', 'ngCordova'])
             $rootScope.operatingSystem = 'iOS';
         }
 
+        try {
+            window.analytics.startTrackerWithId('UA-61974799-1');
+            window.analytics.trackView('Home');
+        } catch (e) {
+            // console.log(e);
+        }
+
         $rootScope.favorites = window.localStorage.favorites ? JSON.parse(window.localStorage.favorites) : [];
 
         ionic.EventController.globalPlay = function() {

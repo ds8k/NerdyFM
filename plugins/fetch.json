@@ -69,5 +69,18 @@
             "url": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
             "subdir": "."
         }
+    },
+    "com.danielcwilson.plugins.googleanalytics": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/tabrindle/google-analytics-plugin",
+            "subdir": "."
+        }
+    },
+    "com.google.playservices": {
+        "source": {
+            "type": "registry",
+            "id": "com.google.playservices@19.0.0"
+        }
     }
 }

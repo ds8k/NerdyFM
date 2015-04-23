@@ -7,7 +7,7 @@
                 <h2>{{fav.title}}</h2>
                 <p>{{fav.artist}}</p>
                 </a>
-                <ion-option-button class="button-balanced" ng-click="openBuy(fav.buy)" ng-show="fav.buy">
+                <ion-option-button class="button-balanced" ng-click="openBuy(fav, fav.buy)" ng-show="fav.buy">
                     Buy
                 </ion-option-button>
                 <ion-option-button class="button-balanced" ng-click="openSearch(fav)" ng-show="!fav.buy">

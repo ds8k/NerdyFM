@@ -22,7 +22,6 @@
         </ion-footer-bar>
     </ion-pane>
     <ion-footer-bar class="bottom bar-dark middleBar">
-        <!-- <div ng-class="getTrackClass()" ng-controller="TrackCtrl" ng-click="open(track)"> -->
         <div class="{{trackClass}}" ng-controller="TrackCtrl" ng-click="open(track)">
             <img ng-src="{{track.imageurl}}" ng-show="track.imageurl!==''">
             <div class="trackWrap">

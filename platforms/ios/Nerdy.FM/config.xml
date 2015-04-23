@@ -92,4 +92,7 @@
     <preference name="StatusBarStyle" value="lightcontent" />
     <preference name="Orientation" value="portrait" />
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
+    <feature name="UniversalAnalytics">
+        <param name="ios-package" value="UniversalAnalyticsPlugin" />
+    </feature>
 </widget>
