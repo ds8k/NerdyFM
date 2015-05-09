@@ -220,6 +220,22 @@ and (-webkit-min-device-pixel-ratio: 2) {
        height: 24vw;
    }
 
+   .popUp {
+        position: relative!important;
+        top: 28vh!important;
+        transform: translateY(-50%)!important;
+        -webkit-transform: translateY(-50%)!important;
+        width: 60vw !important;
+        height: auto!important;
+        margin-left:auto!important;
+        margin-right:auto!important;
+        background-color:grey!important;
+    }
+
+    .popUp img {
+        width:100%!important;
+        //height:auto;
+    }
 }
 
 .extraBar {
@@ -236,7 +252,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
     top: 45vh;
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
-    width: 80vw !important;
+    width: 80vw;
     height:auto;
     margin-left:auto;
     margin-right:auto;

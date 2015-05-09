@@ -14,21 +14,28 @@ angular.module('nerdyfm.controller', [])
     };
 
     $rootScope.getRecent();
+    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
+        try {
+            if (toState.name === 'app.home') {
+                window.analytics.trackView('Home');
+            } else if (toState.name === 'app.recent') {
+                window.analytics.trackView('Recently Played');
+            } else if (toState.name === 'app.favorites') {
+                window.analytics.trackView('Favorites');
+            }
+        } catch (e) {
+            // console.log(e);
+        }
+    });
 })
 
 //Controls the track popup
 .controller('TrackCtrl', function($rootScope, $scope, $ionicModal) {
+
     $ionicModal.fromTemplateUrl('templates/track.html', {
         scope: $scope
     }).then(function(modal) {
         $scope.modal = modal;
-    });
-
-    //Reset the statusbar on Android when modal hides
-    $scope.$on('modal.hidden', function(data) {
-        if ($rootScope.operatingSystem === 'Android') {
-            StatusBar.backgroundColorByHexString('#D32F2F');
-        }
     });
 
     //Display the track modal
@@ -38,9 +45,10 @@ angular.module('nerdyfm.controller', [])
 
         if ($scope.record.artist) {
             $scope.modal.show();
-
-            if ($rootScope.operatingSystem === 'Android') {
-                StatusBar.backgroundColorByHexString('#730800');
+            try {
+                window.analytics.trackView('Track');
+            } catch (e) {
+                // console.log(e);
             }
         }
     };
@@ -72,6 +80,12 @@ angular.module('nerdyfm.controller', [])
              return val;
         });
 
+        try {
+            window.analytics.trackEvent('Tap', 'Add Favorite', newFavorite.artist + ' - ' + newFavorite.title);
+        } catch (e) {
+            // console.log(e);
+        }
+
         //close the modal
         $scope.modal.hide();
     };
@@ -92,23 +106,40 @@ angular.module('nerdyfm.controller', [])
              }
              return val;
         });
+
+        try {
+            window.analytics.trackEvent('Tap', 'Delete Favorite', record.artist + ' - ' + record.title);
+        } catch (e) {
+            // console.log(e);
+        }
     };
 
     //Opens the buy link from Museter
-    $rootScope.openBuy = function(link) {
+    $rootScope.openBuy = function(record, link) {
         window.open(link, '_system');
+
+        try {
+            window.analytics.trackEvent('Tap', 'Buy', record.artist + ' - ' + record.title);
+        } catch (e) {
+            // console.log(e);
+        }
     };
 
     //Does a good search if the song didn't have a buy link
     $rootScope.openSearch = function(record) {
         var search = encodeURIComponent(record.artist + ' ' + record.title);
         window.open('https://www.google.com/#q=' + search, '_system');
+
+        try {
+            window.analytics.trackEvent('Tap', 'Search', record.artist + ' - ' + record.title);
+        } catch (e) {
+            // console.log(e);
+        }
     };
 })
 
 //Main player controller - THIS THING IS A NIGHTMARE
 .controller('PlayCtrl', function($rootScope, $scope, $http, $interval) {
-
     $rootScope.audio = $rootScope.audio ? $rootScope.audio : document.getElementById("audiostream"); //Get our audio element
     $rootScope.androidAudio = $rootScope.androidAudio ? $rootScope.androidAudio : undefined; //Junk Android variable
     $rootScope.playClass = $rootScope.playClass ? $rootScope.playClass : "play"; //Set dumb variable for play button
@@ -151,7 +182,20 @@ angular.module('nerdyfm.controller', [])
             $rootScope.getListing();
             $rootScope.startInterval();
 
+            try {
+                window.analytics.trackEvent('Tap', 'Play', $rootScope.operatingSystem);
+            } catch (e) {
+                console.log(e);
+            }
+
         } else {
+
+            try {
+                window.analytics.trackEvent('Tap', 'Pause', $rootScope.operatingSystem);
+            } catch (e) {
+                // console.log(e);
+            }
+
             if ($rootScope.operatingSystem === 'iOS') {
                 $rootScope.audio.pause(); //Pause the song
                 $rootScope.audio.src = ''; //Remove the source (stops the streaming)
@@ -219,9 +263,6 @@ angular.module('nerdyfm.controller', [])
                     try {
                         //Cordova plugin that changes the metadata for iOS lock screen
                         window.NowPlaying.updateMetas($rootScope.track.artist, $rootScope.track.title, $rootScope.track.album);
-
-                        //Android notification player
-                        $rootScope.androidAudio.updateAndroidNotification([$rootScope.track.artist, $rootScope.track.title, $rootScope.track.album, $rootScope.track.imageurl]);
                     } catch (e) {
                         // console.log(e);
                     }
@@ -244,6 +285,7 @@ angular.module('nerdyfm.controller', [])
         try {
             //Call the share plugin
             window.plugins.socialsharing.share('Check out ' + record.artist + ' - ' + record.title +  ' on Nerdy.FM!', null, null, 'http://www.nerdy.fm');
+            window.analytics.trackEvent('Tap', 'Share', record.artist + ' - ' + record.title);
         } catch (e) {
             // console.log(e);
         }

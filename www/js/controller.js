@@ -38,13 +38,6 @@ angular.module('nerdyfm.controller', [])
         $scope.modal = modal;
     });
 
-    //Reset the statusbar on Android when modal hides
-    $scope.$on('modal.hidden', function(data) {
-        if ($rootScope.operatingSystem === 'Android') {
-            StatusBar.backgroundColorByHexString('#D32F2F');
-        }
-    });
-
     //Display the track modal
     //if on Android, also change the statusbar color
     $scope.open = function(record) {
@@ -52,11 +45,6 @@ angular.module('nerdyfm.controller', [])
 
         if ($scope.record.artist) {
             $scope.modal.show();
-
-            if ($rootScope.operatingSystem === 'Android') {
-                StatusBar.backgroundColorByHexString('#730800');
-            }
-
             try {
                 window.analytics.trackView('Track');
             } catch (e) {
@@ -243,7 +231,6 @@ angular.module('nerdyfm.controller', [])
         } else {
             $rootScope.stop = $interval(function() {
                 $rootScope.getListing();
-                window.analytics.trackEvent('Ongoing', 'Listening', $rootScope.operatingSystem);
             }, 15000);
         }
     };
