@@ -230,6 +230,13 @@ module.exports = [
         "clobbers": [
             "analytics"
         ]
+    },
+    {
+        "file": "plugins/com.borismus.webintent/www/webintent.js",
+        "id": "com.borismus.webintent.WebIntent",
+        "clobbers": [
+            "WebIntent"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -246,7 +253,8 @@ module.exports.metadata =
     "org.apache.cordova.media": "0.2.16",
     "org.apache.cordova.statusbar": "0.1.11-dev",
     "nl.x-services.plugins.socialsharing": "4.3.15",
-    "com.danielcwilson.plugins.googleanalytics": "0.7.0"
+    "com.danielcwilson.plugins.googleanalytics": "0.7.0",
+    "com.borismus.webintent": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

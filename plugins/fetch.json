@@ -82,5 +82,12 @@
             "type": "registry",
             "id": "com.google.playservices@19.0.0"
         }
+    },
+    "com.borismus.webintent": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Initsogar/cordova-webintent.git",
+            "subdir": "."
+        }
     }
 }

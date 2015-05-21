@@ -179,6 +179,9 @@
         },
         "com.danielcwilson.plugins.googleanalytics": {
             "PACKAGE_NAME": "com.nerdyfm.app"
+        },
+        "com.borismus.webintent": {
+            "PACKAGE_NAME": "com.nerdyfm.app"
         }
     },
     "dependent_plugins": {}
