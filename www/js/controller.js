@@ -266,10 +266,10 @@ angular.module('nerdyfm.controller', [])
                         $rootScope.androidAudio.play(); //play the audio
 
                         try {
-                        window.plugins.webintent.sendBroadcast(
+                            window.plugins.webintent.sendBroadcast(
                                 {
-                                    action: 'com.dummybroadcast.action.triggerthing',
-                                    extras: {}
+                                    action: 'com.nerdyfm.app.NotifBuilder',
+                                    extras: {'ACTION' : 'PLAY', 'CONTENT_TITLE' : 'CONTENT_TITLE', 'CONTENT_TEXT' : 'CONTENT_TEXT', 'SET_ONGOING' : true, 'SET_AUTO_CANCEL' : false}
                                 },
                                 function() {},
                                 function() {}

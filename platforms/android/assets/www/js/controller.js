@@ -255,16 +255,28 @@ angular.module('nerdyfm.controller', [])
                         $rootScope.audio.load(); //Reload the stream. Gets the user up-to-date with the stream
                         $rootScope.audio.play(); //Finally, play it
 
+                        try {
+                            //Cordova plugin that changes the metadata for iOS lock screen
+                            window.NowPlaying.updateMetas($rootScope.track.artist, $rootScope.track.title, $rootScope.track.album);
+                        } catch (e) {
+                            // console.log(e);
+                        }
                     } else if ($rootScope.operatingSystem === 'Android' && !$rootScope.androidAudio) {
                         $rootScope.androidAudio = new Media('http://streams4.museter.com:8344/;stream.nsv');
-                        $rootScope.androidAudio.play([$rootScope.track.artist, $rootScope.track.title, $rootScope.track.album, $rootScope.track.imageurl]); //play the audio
-                    }
+                        $rootScope.androidAudio.play(); //play the audio
 
-                    try {
-                        //Cordova plugin that changes the metadata for iOS lock screen
-                        window.NowPlaying.updateMetas($rootScope.track.artist, $rootScope.track.title, $rootScope.track.album);
-                    } catch (e) {
-                        // console.log(e);
+                        try {
+                            window.plugins.webintent.sendBroadcast(
+                                {
+                                    action: 'com.nerdyfm.app.NotifBuilder',
+                                    extras: {'ACTION' : 'PLAY', 'CONTENT_TITLE' : 'CONTENT_TITLE', 'CONTENT_TEXT' : 'CONTENT_TEXT', 'SET_ONGOING' : true, 'SET_AUTO_CANCEL' : false}
+                                },
+                                function() {},
+                                function() {}
+                            );
+                        } catch (e) {
+                            // console.log(e);
+                        }
                     }
                 }
             })
