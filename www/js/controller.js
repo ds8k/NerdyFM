@@ -13,7 +13,6 @@ angular.module('nerdyfm.controller', [])
         });
     };
 
-    $rootScope.getRecent();
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
         try {
             if (toState.name === 'app.home') {
@@ -27,11 +26,12 @@ angular.module('nerdyfm.controller', [])
             // console.log(e);
         }
     });
+    
+    $rootScope.getRecent();
 })
 
 //Controls the track popup
 .controller('TrackCtrl', function($rootScope, $scope, $ionicModal) {
-
     $ionicModal.fromTemplateUrl('templates/track.html', {
         scope: $scope
     }).then(function(modal) {
@@ -39,7 +39,6 @@ angular.module('nerdyfm.controller', [])
     });
 
     //Display the track modal
-    //if on Android, also change the statusbar color
     $scope.open = function(record) {
         $scope.record = record;
 
@@ -157,7 +156,7 @@ angular.module('nerdyfm.controller', [])
     $rootScope.setTrackClass = function() {
         $rootScope.trackClass = $rootScope.track.imageurl === '' ? 'playorload' : 'cc_streaminfo';
     };
-
+    
     //Function for the button. Should be self-explanatory
     $rootScope.onClick = function() {
         //Check to see if the event listener is set. If it isn't, add one!
@@ -170,58 +169,73 @@ angular.module('nerdyfm.controller', [])
         }
 
         if ($rootScope.playClass === 'play') {
-            //Change the track object. Kind of crappy but it works
-            $rootScope.track = {
-                artist: '',
-                title: 'Loading...',
-                album: '',
-                imageurl: ''
-            };
-
-            //Get the current streaming song. This function will change the track object
-            $rootScope.getListing();
-            $rootScope.startInterval();
-
-            try {
-                window.analytics.trackEvent('Tap', 'Play', $rootScope.operatingSystem);
-            } catch (e) {
-                console.log(e);
-            }
-
+            $rootScope.onPlay();
         } else {
-
-            try {
-                window.analytics.trackEvent('Tap', 'Pause', $rootScope.operatingSystem);
-            } catch (e) {
-                // console.log(e);
-            }
-
-            if ($rootScope.operatingSystem === 'iOS') {
-                $rootScope.audio.pause(); //Pause the song
-                $rootScope.audio.src = ''; //Remove the source (stops the streaming)
-            } else {
-                $rootScope.androidAudio.stop(); //Stop
-                $rootScope.androidAudio.release(); //Release the android audio
-                $rootScope.androidAudio = undefined; //Reset the audio variable
-            }
-
-            $interval.cancel($rootScope.stop); //Cancel the interval
-            $rootScope.stop = undefined; //Set interval object to undefined
-
-            //Reset the track object
-            $rootScope.track = {
-                artist: '',
-                title: 'Click play!',
-                album: '',
-                imageurl: ''
-            };
-
-            $rootScope.song = ''; //Reset song variable
+            $rootScope.onPause();
         }
 
         $rootScope.setPlayClass(); //Set the play button class
         $rootScope.setTrackClass(); //Set the track class
     };
+    
+    $rootScope.onPlay = function() {
+        //Change the track object. Kind of crappy but it works
+        $rootScope.track = {
+            artist: '',
+            title: 'Loading...',
+            album: '',
+            imageurl: ''
+        };
+
+        //Get the current streaming song. This function will change the track object
+        $rootScope.getListing();
+        $rootScope.startInterval();
+
+        try {
+            window.analytics.trackEvent('Tap', 'Play', $rootScope.operatingSystem);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    
+    $rootScope.onPause = function() {
+        try {
+            window.analytics.trackEvent('Tap', 'Pause', $rootScope.operatingSystem);
+        } catch (e) {
+            // console.log(e);
+        }
+
+        if ($rootScope.operatingSystem === 'iOS') {
+            $rootScope.audio.pause(); //Pause the song
+            $rootScope.audio.src = ''; //Remove the source (stops the streaming)
+        } else {
+            $rootScope.androidAudio.stop(); //Stop
+            $rootScope.androidAudio.release(); //Release the android audio
+            $rootScope.androidAudio = undefined; //Reset the audio variable
+            
+            window.MusicController.create({
+                track: $rootScope.track.title,
+                artist: $rootScope.track.artist,
+                cover: $rootScope.track.imageurl,
+                isPlaying: false
+            });
+        }
+
+        $interval.cancel($rootScope.stop); //Cancel the interval
+        $rootScope.stop = undefined; //Set interval object to undefined
+
+        //Reset the track object
+        $rootScope.track = {
+            artist: '',
+            title: 'Click play!',
+            album: '',
+            imageurl: ''
+        };
+
+        $rootScope.song = ''; //Reset song variable
+    };
+
+    
 
     //Set a 15 second interval to check if the current song has changed
     //If an interval is already set then we're already playing.
@@ -244,28 +258,11 @@ angular.module('nerdyfm.controller', [])
             .success(function(data) {
                 //If the song is different then change it
                 if ($rootScope.song !== data.data[0].song) {
-
                     $rootScope.song = data.data[0].song;
                     $rootScope.track = data.data[0].track;
                     $rootScope.setTrackClass();
                     $rootScope.getRecent();
-
-                    if ($rootScope.operatingSystem === 'iOS' && $rootScope.audio.paused) {
-                        $rootScope.audio.src = 'http://streams4.museter.com:8344/;stream.nsv';
-                        $rootScope.audio.load(); //Reload the stream. Gets the user up-to-date with the stream
-                        $rootScope.audio.play(); //Finally, play it
-
-                    } else if ($rootScope.operatingSystem === 'Android' && !$rootScope.androidAudio) {
-                        $rootScope.androidAudio = new Media('http://streams4.museter.com:8344/;stream.nsv');
-                        $rootScope.androidAudio.play([$rootScope.track.artist, $rootScope.track.title, $rootScope.track.album, $rootScope.track.imageurl]); //play the audio
-                    }
-
-                    try {
-                        //Cordova plugin that changes the metadata for iOS lock screen
-                        window.NowPlaying.updateMetas($rootScope.track.artist, $rootScope.track.title, $rootScope.track.album);
-                    } catch (e) {
-                        // console.log(e);
-                    }
+                    $rootScope.updateTracks();
                 }
             })
             .error(function(data) {
@@ -276,6 +273,46 @@ angular.module('nerdyfm.controller', [])
                     imageurl: ''
                 };
             });
+    };
+    
+    $rootScope.updateTracks = function() {
+        if ($rootScope.operatingSystem === 'iOS') {
+            if ($rootScope.audio.paused) {
+                $rootScope.audio.src = 'http://streams4.museter.com:8344/;stream.nsv';
+                $rootScope.audio.load(); //Reload the stream. Gets the user up-to-date with the stream
+                $rootScope.audio.play(); //Finally, play it
+            }
+
+            try {
+                //Cordova plugin that changes the metadata for iOS lock screen
+                window.NowPlaying.updateMetas($rootScope.track.artist, $rootScope.track.title, $rootScope.track.album);
+            } catch (e) {
+                // console.log(e);
+            }
+        } else if ($rootScope.operatingSystem === 'Android') {
+            if (!$rootScope.androidAudio) {
+                $rootScope.androidAudio = new Media('http://streams4.museter.com:8344/;stream.nsv');
+                $rootScope.androidAudio.play(); //play the audio    
+            }
+
+            try {
+                window.MusicController.create({
+                    track: $rootScope.track.title,
+                    artist: $rootScope.track.artist,
+                    cover: $rootScope.track.imageurl,
+                    isPlaying: true
+                });
+                
+                var events = function(action) {
+                    $rootScope.onClick();
+                };
+                
+                window.MusicController.subscribe(events);
+                window.MusicController.listen();
+            } catch (e) {
+                // console.log(e);
+            }
+        }
     };
 
     //Share the current track
@@ -289,5 +326,48 @@ angular.module('nerdyfm.controller', [])
         } catch (e) {
             // console.log(e);
         }
+    };
+})
+
+.controller('ChromeCastCtrl', function($rootScope, $scope, $ionicLoading) {
+
+    $rootScope.showChromecast = $rootScope.showChromecast ? $rootScope.showChromecast : false;
+    
+    $scope.showDevicePicker = function() {
+        if (!$rootScope.mediaControl) {
+            $ionicLoading.show({
+              template: '<ion-spinner></ion-spinner>'
+            });
+
+            ConnectSDK.discoveryManager.pickDevice().success($scope.handleDevicePicked);
+        } else {
+            
+        }
+    };
+
+    $scope.handleDevicePicked = function(device) {
+        device.getMediaPlayer().playMedia('http://streams4.museter.com:8344/;stream.nsv', 'audio/mp3', {
+            title: "Nerdy.FM",
+            description: "Nerd Music 24/7"
+        }).success(function (launchSession, mediaControl) {
+            $ionicLoading.hide();
+
+            $rootScope.launchSession = launchSession;
+            $rootScope.mediaControl = mediaControl;
+            $rootScope.chromecastPaused = true;
+
+            if ($rootScope.operatingSystem === 'iOS') {
+                $rootScope.audio.pause(); //Pause the song
+                $rootScope.audio.src = ''; //Remove the source (stops the streaming)
+            } else if ($rootScope.androidAudio) {
+                $rootScope.androidAudio.stop(); //Stop
+                $rootScope.androidAudio.release(); //Release the android audio
+                $rootScope.androidAudio = undefined; //Reset the audio variable
+            }
+
+            $rootScope.onClick();
+        }).error(function (err) {
+            console.log("error: " + err.message);
+        });
     };
 });

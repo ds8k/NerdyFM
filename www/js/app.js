@@ -28,6 +28,23 @@ angular.module('nerdyfm', ['ionic', 'nerdyfm.controller', 'ngCordova'])
         } catch (e) {
             // console.log(e);
         }
+        
+        try {
+            window.MusicController.destroy();
+        } catch (e) {
+            // console.log(e)
+        }
+        
+        try {
+            var filter = new ConnectSDK.CapabilityFilter(["MediaPlayer.Play.Audio"]);
+
+            ConnectSDK.discoveryManager.startDiscovery();
+            ConnectSDK.discoveryManager.on("devicefound", function() {
+                $rootScope.showChromecast = true;
+            });
+        } catch (e) {
+            // console.log(e);
+        }
 
         $rootScope.favorites = window.localStorage.favorites ? JSON.parse(window.localStorage.favorites) : [];
 
