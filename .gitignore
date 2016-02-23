@@ -45,3 +45,15 @@ platforms/ios/CordovaLib/build/
 platforms/ios/www/
 platforms/ios/.staging/
 platforms/ios/NerdyFM.xcodeproj/project.xcworkspace/xcuserdata/
+platforms/android/assets/www/js/controller.js
+platforms/ios/www/js/app.js
+platforms/ios/www/css/ionic.app.css
+platforms/android/assets/www/cordova.js
+platforms/android/assets/www/css/ionic.app.css
+platforms/android/assets/www/css/ionic.app.min.css
+platforms/android/assets/www/js/app.js
+platforms/android/assets/www/templates/menu.html
+platforms/ios/www/cordova.js
+platforms/ios/www/css/ionic.app.min.css
+platforms/ios/www/js/controller.js
+platforms/ios/www/templates/menu.html
