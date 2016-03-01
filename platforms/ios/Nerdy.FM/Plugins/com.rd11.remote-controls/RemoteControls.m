@@ -38,7 +38,15 @@ static RemoteControls *remoteControls = nil;
                 NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
                 image = [UIImage imageWithData:imageData];
             }
-            // cover is local file
+            // cover is full path to local file
+            else if ([cover hasPrefix: @"file://"]) {
+                NSString *fullPath = [cover stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+                BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fullPath];
+                if (fileExists) {
+                    image = [[UIImage alloc] initWithContentsOfFile:fullPath];
+                }
+            }
+            // cover is relative path to local file
             else {
                 NSString *basePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
                 NSString *fullPath = [NSString stringWithFormat:@"%@%@", basePath, cover];
@@ -76,49 +84,49 @@ static RemoteControls *remoteControls = nil;
 
 
 - (void)receiveRemoteEvent:(UIEvent *)receivedEvent {
-    
+
     if (receivedEvent.type == UIEventTypeRemoteControl) {
-        
+
         NSString *subtype = @"other";
-        
+
         switch (receivedEvent.subtype) {
-                
+
             case UIEventSubtypeRemoteControlTogglePlayPause:
                 NSLog(@"playpause clicked.");
                 subtype = @"playpause";
                 break;
-                
+
             case UIEventSubtypeRemoteControlPlay:
                 NSLog(@"play clicked.");
                 subtype = @"play";
                 break;
-                
+
             case UIEventSubtypeRemoteControlPause:
                 NSLog(@"nowplaying pause clicked.");
                 subtype = @"pause";
                 break;
-                
+
             case UIEventSubtypeRemoteControlPreviousTrack:
                 //[self previousTrack: nil];
                 NSLog(@"prev clicked.");
                 subtype = @"prevTrack";
                 break;
-                
+
             case UIEventSubtypeRemoteControlNextTrack:
                 NSLog(@"next clicked.");
                 subtype = @"nextTrack";
                 //[self nextTrack: nil];
                 break;
-                
+
             default:
                 break;
         }
-        
+
         NSDictionary *dict = @{@"subtype": subtype};
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options: 0 error: nil];
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSString *jsStatement = [NSString stringWithFormat:@"if(window.remoteControls)remoteControls.receiveRemoteEvent(%@);", jsonString];
-        [self.webView stringByEvaluatingJavaScriptFromString:jsStatement];  
+        [self.webView stringByEvaluatingJavaScriptFromString:jsStatement];
 
     }
 }
@@ -127,12 +135,12 @@ static RemoteControls *remoteControls = nil;
 {
     //objects using shard instance are responsible for retain/release count
     //retain count must remain 1 to stay in mem
-    
+
     if (!remoteControls)
     {
         remoteControls = [[RemoteControls alloc] init];
     }
-    
+
     return remoteControls;
 }
 

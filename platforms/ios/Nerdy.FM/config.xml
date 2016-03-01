@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.nerdyfm.app" version="1.0.9" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-packageName="com.nerdyfm.android" id="com.nerdyfm.app" ios-CFBundleIdentifier="com.nerdyfm.app" version="1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="DisallowOverscroll" value="false" />
@@ -14,15 +14,9 @@
     <feature name="LocalStorage">
         <param name="ios-package" value="CDVLocalStorage" />
     </feature>
-    <feature name="NowPlaying">
-        <param name="ios-package" value="NowPlaying" />
-    </feature>
     <feature name="BackgroundAudio">
         <param name="ios-package" onload="true" value="BackgroundAudio" />
         <param name="onload" value="true" />
-    </feature>
-    <feature name="RemoteControls">
-        <param name="ios-package" value="RemoteControls" />
     </feature>
     <feature name="SocialSharing">
         <param name="ios-package" value="SocialSharing" />
@@ -58,6 +52,12 @@
     <feature name="SplashScreen">
         <param name="ios-package" value="CDVSplashScreen" />
         <param name="onload" value="true" />
+    </feature>
+    <feature name="RemoteControls">
+        <param name="ios-package" value="RemoteControls" />
+    </feature>
+    <feature name="NetworkStatus">
+        <param name="ios-package" value="CDVConnection" />
     </feature>
     <splash height="1136" src="resources/ios/splash/Default-568h@2x~iphone.png" width="640" />
     <splash height="1334" src="resources/ios/splash/Default-667h.png" width="750" />
@@ -97,7 +97,10 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="FadeSplashScreen" value="true" />
+    <preference name="FadeSplashScreenDuration" value="1" />
     <preference name="StatusBarStyle" value="lightcontent" />
     <preference name="Orientation" value="portrait" />
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />

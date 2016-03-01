@@ -85,11 +85,12 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    // Turn off remote control event delivery
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
 }
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)receivedEvent {
-   [[RemoteControls remoteControls] receiveRemoteEvent:receivedEvent];
+    [[RemoteControls remoteControls] receiveRemoteEvent:receivedEvent];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

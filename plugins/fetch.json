@@ -1,17 +1,4 @@
 {
-    "com.rd11.remote-controls": {
-        "source": {
-            "type": "registry",
-            "id": "com.rd11.remote-controls"
-        }
-    },
-    "com.silverorange.now-playing": {
-        "source": {
-            "type": "git",
-            "url": "https://github.com/ChoiZ/NowPlaying.git",
-            "subdir": "."
-        }
-    },
     "nl.kingsquare.cordova.background-audio": {
         "source": {
             "type": "git",
@@ -130,6 +117,24 @@
         "source": {
             "type": "git",
             "url": "https://github.com/leecrossley/cordova-plugin-transport-security",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.rd11.remote-controls": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/shi11/RemoteControls",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-network-information": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/apache/cordova-plugin-network-information",
             "subdir": "."
         },
         "is_top_level": true,

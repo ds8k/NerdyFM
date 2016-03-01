@@ -71,6 +71,10 @@
                         {
                             "xml": "<feature name=\"MusicControls\"><param name=\"android-package\" value=\"com.homerours.musiccontrols.MusicControls\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"NetworkStatus\"><param name=\"android-package\" value=\"org.apache.cordova.networkinformation.NetworkManager\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -100,7 +104,7 @@
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
-                            "count": 2
+                            "count": 3
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",
@@ -138,13 +142,7 @@
         }
     },
     "installed_plugins": {
-        "com.silverorange.now-playing": {
-            "PACKAGE_NAME": "com.nerdyfm.app"
-        },
         "nl.kingsquare.cordova.background-audio": {
-            "PACKAGE_NAME": "com.nerdyfm.app"
-        },
-        "com.rd11.remote-controls": {
             "PACKAGE_NAME": "com.nerdyfm.app"
         },
         "nl.x-services.plugins.socialsharing": {
@@ -187,6 +185,12 @@
             "PACKAGE_NAME": "com.nerdyfm.app"
         },
         "cordova-plugin-transport-security": {
+            "PACKAGE_NAME": "com.nerdyfm.app"
+        },
+        "com.rd11.remote-controls": {
+            "PACKAGE_NAME": "com.nerdyfm.app"
+        },
+        "cordova-plugin-network-information": {
             "PACKAGE_NAME": "com.nerdyfm.app"
         }
     },

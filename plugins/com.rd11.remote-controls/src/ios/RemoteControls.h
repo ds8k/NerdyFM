@@ -17,6 +17,7 @@
 
 +(RemoteControls*)remoteControls;
 
+- (void)updateMetas:(CDVInvokedUrlCommand*)command;
 - (void)receiveRemoteEvent:(UIEvent *)receivedEvent;
 
 @end

@@ -16,9 +16,14 @@
 //------------------------------------------------------------------------------
 var remoteControls = module.exports;
 
+//params = [artist, title, album, cover, duration]
+remoteControls.updateMetas = function(success, fail, params) {
+    cordova.exec(success, fail, 'RemoteControls', 'updateMetas', params);
+};
+
 remoteControls.receiveRemoteEvent = function(event) {
     var ev = document.createEvent('HTMLEvents');
     ev.remoteEvent = event;
     ev.initEvent('remote-event', true, true, arguments);
     document.dispatchEvent(ev);
-};
+}
