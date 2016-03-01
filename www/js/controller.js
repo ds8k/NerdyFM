@@ -170,19 +170,6 @@ angular.module('nerdyfm.controller', [])
     $rootScope.trackClass = $rootScope.trackClass ? $rootScope.trackClass : "playorload"; //Default track class
     $rootScope.song = $rootScope.song ? $rootScope.song : ''; //Dumb variable for determining current song
 
-    $rootScope.audio.addEventListener('loadeddata', function() {
-        $rootScope.audio.play();
-
-        //Get the current streaming song. This function will change the track object
-        $rootScope.getListing();
-        $rootScope.startInterval();
-    });
-
-    $rootScope.audio.addEventListener('error', function() {
-        console.log('error', arguments);
-        $rootScope.onPause();
-    });
-
     //Changes the class of the play button
     $rootScope.setPlayClass = function() {
         $rootScope.playClass = $rootScope.playClass === 'play' ? 'pause' : 'play';
@@ -195,6 +182,8 @@ angular.module('nerdyfm.controller', [])
     
     //Function for the button. Should be self-explanatory
     $rootScope.onClick = function() {
+        console.log('on click');
+
         //Check to see if the event listener is set. If it isn't, add one!
         if (!$rootScope.listener) {
             document.addEventListener("remote-event", function(event) {
@@ -215,6 +204,7 @@ angular.module('nerdyfm.controller', [])
     };
     
     $rootScope.onPlay = function() {
+        console.log('on play');
         //Change the track object. Kind of crappy but it works
         $rootScope.track = {
             artist: '',
@@ -223,11 +213,20 @@ angular.module('nerdyfm.controller', [])
             imageurl: ''
         };
 
-        $rootScope.audio.src = 'http://streams4.museter.com:8344/;stream.nsv';
-        // $rootScope.audio.load(); //Reload the stream. Gets the user up-to-date with the stream
-        // $rootScope.audio.play(); //Finally, play it
+        $rootScope.audio.addEventListener('loadeddata', function(e) {
+        // $rootScope.audio.onloadeddata = function(e) {
+            console.log('loaded data');
+            e.target.removeEventListener(e.type, arguments.callee);
 
-        
+            //Get the current streaming song. This function will change the track object
+            $rootScope.getListing();
+            $rootScope.startInterval();
+
+            $rootScope.audio.play();
+        });
+
+        $rootScope.audio.src = 'http://streams4.museter.com:8344/;stream.nsv';
+        $rootScope.audio.load();
 
         try {
             window.analytics.trackEvent('Tap', 'Play', $rootScope.operatingSystem);
@@ -246,12 +245,27 @@ angular.module('nerdyfm.controller', [])
         $rootScope.audio.pause(); //Pause the song
         $rootScope.audio.src = ''; //Remove the source (stops the streaming)
 
-        if ($rootScope.operatingSystem === 'Android') {
-            try {
-                window.MusicControls.updateIsPlaying(false);
-            } catch (e) {
-                console.log(e);
+        try {
+            if ($rootScope.operatingSystem === 'Android') {
+                window.MusicControls.create({
+                    track: 'Nerdy.FM',
+                    artist: 'Click Play!',
+                    cover: 'http://i.imgur.com/LIY1DEX.png',
+                    isPlaying: false,
+                    dismissable: true,
+                    hasPrev: false,
+                    hasNext: false,
+                    hasClose: true
+                });
+            } else {
+                window.remoteControls.updateMetas(function(success) {
+                    console.log(success);
+                }, function(fail){
+                    console.log(fail);
+                }, ['Click Play!', 'Nerdy.FM', '', 'http://i.imgur.com/LIY1DEX.png', 0, 0]);
             }
+        } catch (e) {
+            console.log(e);
         }
 
         $interval.cancel($rootScope.stop); //Cancel the interval
@@ -268,14 +282,24 @@ angular.module('nerdyfm.controller', [])
         $rootScope.song = ''; //Reset song variable
     };
 
-    $rootScope.onError = function() {
-        $rootScope.track = {
-            artist: '',
-            title: 'An error occurred! Try again?',
-            album: '',
-            imageurl: ''
-        };
+    $rootScope.onError = function(state) {
+        if (state === 'offline') {
+            $rootScope.track = {
+                artist: '',
+                title: 'No Internet Connection!',
+                album: '',
+                imageurl: 'http://i.imgur.com/LIY1DEX.png'
+            };    
+        } else {
+            $rootScope.track = {
+                artist: '',
+                title: 'An error occurred! Try again?',
+                album: '',
+                imageurl: 'http://i.imgur.com/LIY1DEX.png'
+            };
+        }
 
+        $rootScope.audio.src = '';
         $rootScope.song = ''; //Reset song variable
         $interval.cancel($rootScope.stop); //Cancel the interval
         $rootScope.stop = undefined; //Set interval object to undefined
@@ -311,6 +335,7 @@ angular.module('nerdyfm.controller', [])
             })
             .error(function(data) {
                 $rootScope.onError();
+                $rootScope.setTrackClass();
             });
     };
     
@@ -318,20 +343,12 @@ angular.module('nerdyfm.controller', [])
         try {
             if ($rootScope.operatingSystem === 'iOS') {
                 //Cordova plugin that changes the metadata for iOS lock screen
-                window.NowPlaying.updateMetas($rootScope.track.artist, $rootScope.track.title, $rootScope.track.album);
+                window.remoteControls.updateMetas(function(success) {
+                    console.log(success);
+                }, function(fail){
+                    console.log(fail);
+                }, [$rootScope.track.artist, $rootScope.track.title, $rootScope.track.album, $rootScope.track.imageurl, 0, 0]);
             } else if ($rootScope.operatingSystem === 'Android') {
-                window.MusicControls.create({
-                    track: $rootScope.track.title,
-                    artist: $rootScope.track.artist,
-                    cover: $rootScope.track.imageurl,
-                    isPlaying: true,
-                    dismissable: true,
-                    hasPrev: false,
-                    hasNext: false,
-                    hasClose: true,
-                    ticker: 'Now playing ' + $rootScope.track.artist + ' - ' + $rootScope.track.title
-                });
-                
                 var events = function(action) {
                     switch(action) {
                         case 'music-controls-play':
@@ -348,6 +365,19 @@ angular.module('nerdyfm.controller', [])
                             break;
                     }
                 };
+                window.MusicControls.destory();
+                window.MusicControls.create({
+                    track: $rootScope.track.title,
+                    artist: $rootScope.track.artist,
+                    cover: $rootScope.track.imageurl,
+                    isPlaying: true,
+                    dismissable: true,
+                    hasPrev: false,
+                    hasNext: false,
+                    hasClose: true,
+                    ticker: 'Now playing ' + $rootScope.track.artist + ' - ' + $rootScope.track.title
+                });
+
                 window.MusicControls.subscribe(events);
                 window.MusicControls.listen();
             }
