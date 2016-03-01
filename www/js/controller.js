@@ -344,41 +344,40 @@ angular.module('nerdyfm.controller', [])
             console.log(e);
         }
     };
-})
-
-.controller('ChromeCastCtrl', function($rootScope, $scope, $ionicLoading) {
-
-    $rootScope.showChromecast = $rootScope.showChromecast ? $rootScope.showChromecast : false;
-    
-    $scope.showDevicePicker = function() {
-        if (!$rootScope.mediaControl) {
-            $ionicLoading.show({
-              template: '<ion-spinner></ion-spinner>'
-            });
-
-            ConnectSDK.discoveryManager.pickDevice().success($scope.handleDevicePicked);
-        } else {
-            
-        }
-    };
-
-    $scope.handleDevicePicked = function(device) {
-        device.getMediaPlayer().playMedia('http://streams4.museter.com:8344/;stream.nsv', 'audio/mp3', {
-            title: "Nerdy.FM",
-            description: "Nerd Music 24/7"
-        }).success(function (launchSession, mediaControl) {
-            $ionicLoading.hide();
-
-            $rootScope.launchSession = launchSession;
-            $rootScope.mediaControl = mediaControl;
-            $rootScope.chromecastPaused = true;
-
-            $rootScope.audio.pause(); //Pause the song
-            $rootScope.audio.src = ''; //Remove the source (stops the streaming)
-
-            $rootScope.onClick();
-        }).error(function (err) {
-            console.log("error: " + err.message);
-        });
-    };
 });
+
+// .controller('ChromeCastCtrl', function($rootScope, $scope, $ionicLoading) {
+
+//     $rootScope.showChromecast = $rootScope.showChromecast ? $rootScope.showChromecast : false;
+    
+//     $scope.showDevicePicker = function() {
+//         if (!$rootScope.mediaControl) {
+//             $ionicLoading.show({
+//               template: '<ion-spinner></ion-spinner>'
+//             });
+
+//             ConnectSDK.discoveryManager.pickDevice().success($scope.handleDevicePicked);
+//         } else {
+            
+//         }
+//     };
+
+//     $scope.handleDevicePicked = function(device) {
+//         device.getMediaPlayer().playMedia('http://streams4.museter.com:8344/;stream.nsv', 'audio/mp3', {
+//             title: "Nerdy.FM",
+//             description: "Nerd Music 24/7"
+//         }).success(function (launchSession, mediaControl) {
+//             $ionicLoading.hide();
+
+//             $rootScope.launchSession = launchSession;
+//             $rootScope.mediaControl = mediaControl;
+//             $rootScope.chromecastPaused = true;
+
+//             $rootScope.audio.pause(); //Pause the song
+//             $rootScope.audio.src = ''; //Remove the source (stops the streaming)
+
+//             $rootScope.onClick();
+//         }).error(function (err) {
+//             console.log("error: " + err.message);
+//         });
+//     };
