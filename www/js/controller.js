@@ -1,5 +1,29 @@
 angular.module('nerdyfm.controller', [])
 
+.factory('ConnectionStatus', function() {
+    return {
+        isOnline: function() {
+            console.log('isOnline', navigator.onLine);
+            return navigator.onLine;
+        },
+        on: function(state, fn, scope, params) {
+            console.log('on', arguments);
+            params = params || [];
+            fn = fn || Ext.emptyFn;
+            var single = params.single || false;
+
+            function eventListenerFn() {
+                fn.apply(scope, arguments);
+                if (single) {
+                    document.removeEventListener(state, eventListenerFn);
+                }
+            }
+
+            document.addEventListener(state, eventListenerFn);
+        }
+    };
+})
+
 .controller('AppCtrl', function($rootScope, $scope, $http) {
     //Grabs the 9 most recently played tracks
     //If on an iPad, the limit is 8
