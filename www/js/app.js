@@ -1,6 +1,6 @@
 angular.module('nerdyfm', ['ionic', 'nerdyfm.controller', 'ngCordova'])
 
-.run(function($ionicPlatform, $cordovaStatusbar, $cordovaDevice, $rootScope) {
+.run(function($ionicPlatform, $cordovaStatusbar, $cordovaDevice, $rootScope, $cordovaSplashscreen, $timeout, ConnectionStatus) {
     $ionicPlatform.ready(function() {
         if (window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -12,10 +12,12 @@ angular.module('nerdyfm', ['ionic', 'nerdyfm.controller', 'ngCordova'])
                 StatusBar.overlaysWebView(true);
                 $rootScope.operatingSystem = 'iOS';
                 $rootScope.iPad = $cordovaDevice.getModel().indexOf('iPad') > -1 ? true : false;
+                navigator.splashscreen.hide();
             } else {
                 StatusBar.overlaysWebView(false);
                 StatusBar.backgroundColorByHexString('#D32F2F');
                 $rootScope.operatingSystem = 'Android';
+                $timeout($cordovaSplashscreen.hide, 500);
             }
         } catch (e) {
             // console.log(e);
