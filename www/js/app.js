@@ -50,9 +50,16 @@ angular.module('nerdyfm', ['ionic', 'nerdyfm.controller', 'ngCordova'])
 
         $rootScope.favorites = window.localStorage.favorites ? JSON.parse(window.localStorage.favorites) : [];
 
-        ionic.EventController.globalPlay = function() {
-            $rootScope.onClick();
-        };
+        ConnectionStatus.on('offline', function() {
+            $timeout(function() {
+                if (!ConnectionStatus.isOnline()) {
+                    $rootScope.onError('offline');
+                    $rootScope.setTrackClass();
+                    $rootScope.setPlayClass();
+                    ConnectionStatus.on('online', $rootScope.onClick, this, { single: true });
+                }
+            }, 2500)
+        }, this);
     });
 })
 
