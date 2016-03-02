@@ -55,7 +55,7 @@ angular.module('nerdyfm.controller', [])
 })
 
 //Controls the track popup
-.controller('TrackCtrl', function($rootScope, $scope, $ionicModal) {
+.controller('TrackCtrl', function($rootScope, $scope, $ionicModal, $ionicLoading) {
     $ionicModal.fromTemplateUrl('templates/track.html', {
         scope: $scope
     }).then(function(modal) {
@@ -107,6 +107,17 @@ angular.module('nerdyfm.controller', [])
             window.analytics.trackEvent('Tap', 'Add Favorite', newFavorite.artist + ' - ' + newFavorite.title);
         } catch (e) {
             // console.log(e);
+        }
+
+        try {
+            window.plugins.toast.showWithOptions({
+                message: 'Favorite Added!',
+                duration: 'short',
+                position: 'bottom',
+                addPixelsY: $rootScope.operatingSystem === 'Android' ? -250 : -40
+            });
+        } catch (e) {
+            $ionicLoading.show({ template: 'Favorite Added!', noBackdrop: false, duration: 1000 });
         }
 
         //close the modal
@@ -365,7 +376,8 @@ angular.module('nerdyfm.controller', [])
                             break;
                     }
                 };
-                window.MusicControls.destory();
+
+                window.MusicControls.destroy();
                 window.MusicControls.create({
                     track: $rootScope.track.title,
                     artist: $rootScope.track.artist,
