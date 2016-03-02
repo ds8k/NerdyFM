@@ -67,6 +67,10 @@
                         {
                             "xml": "<feature name=\"NetworkStatus\"><param name=\"ios-package\" value=\"CDVConnection\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Toast\"><param name=\"ios-package\" value=\"Toast\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -143,6 +147,12 @@
                             "xml": false,
                             "count": 1
                         }
+                    ],
+                    "QuartzCore.framework": [
+                        {
+                            "xml": false,
+                            "count": 1
+                        }
                     ]
                 }
             },
@@ -214,6 +224,9 @@
             "PACKAGE_NAME": "com.nerdyfm.app"
         },
         "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.nerdyfm.app"
+        },
+        "cordova-plugin-x-toast": {
             "PACKAGE_NAME": "com.nerdyfm.app"
         }
     },

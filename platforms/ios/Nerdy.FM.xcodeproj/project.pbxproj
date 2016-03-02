@@ -66,6 +66,9 @@
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		EB0894D8FA824981BE22D3E5 /* RemoteControls.m in Sources */ = {isa = PBXBuildFile; fileRef = AD002557353D48FBB16C0EE5 /* RemoteControls.m */; };
 		F93F7FFE80D34895AA0D159F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D1511A1D337348ADBC9E5DBD /* libz.dylib */; };
+		B501DD5FDC654C4896C88EF3 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 938B97EA08034512AF0608B7 /* Toast+UIView.m */; };
+		A671C18E292F46FAAF606304 /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 181CFE7366EF4E939107A6E2 /* Toast.m */; };
+		2F9349B668FA4570A71AF903 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E684B810E6943B2AE7388BB /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,6 +186,11 @@
 		F8E31DEB99D74F99933131E4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FA7FA2614252417E984101E0 /* UniversalAnalyticsPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UniversalAnalyticsPlugin.m; path = "cordova-plugin-google-analytics/UniversalAnalyticsPlugin.m"; sourceTree = "<group>"; };
 		FEB36E6D0E89499ABB5CA54C /* CoreTelephony.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		938B97EA08034512AF0608B7 /* Toast+UIView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Toast+UIView.m"; path = "cordova-plugin-x-toast/Toast+UIView.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		181CFE7366EF4E939107A6E2 /* Toast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Toast.m"; path = "cordova-plugin-x-toast/Toast.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		32CC4E0F75A24C3AAAAE41D3 /* Toast+UIView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Toast+UIView.h"; path = "cordova-plugin-x-toast/Toast+UIView.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		AC1B92A512DF49FE931691B2 /* Toast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Toast.h"; path = "cordova-plugin-x-toast/Toast.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		0E684B810E6943B2AE7388BB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "QuartzCore.framework"; path = "System/Library/Frameworks/QuartzCore.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +211,7 @@
 				8956CBBCC36944BDB80BAA12 /* libsqlite3.dylib in Frameworks */,
 				229C5E81CBA9426CB60CE5F3 /* MediaPlayer.framework in Frameworks */,
 				5B7A2F6EED024695BCE43F5D /* CoreTelephony.framework in Frameworks */,
+				2F9349B668FA4570A71AF903 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +293,7 @@
 				AD9AA96FC45B468B9EF72EE9 /* libsqlite3.dylib */,
 				84D6CDC27C624AB2984E0456 /* MediaPlayer.framework */,
 				FEB36E6D0E89499ABB5CA54C /* CoreTelephony.framework */,
+				0E684B810E6943B2AE7388BB /* QuartzCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -344,6 +354,10 @@
 				DE1A81FE9D3247A19570FE8A /* CDVReachability.m */,
 				323CB71720AC4569B452CE6B /* CDVConnection.h */,
 				18273273CC92408EA126C3D1 /* CDVReachability.h */,
+				938B97EA08034512AF0608B7 /* Toast+UIView.m */,
+				181CFE7366EF4E939107A6E2 /* Toast.m */,
+				32CC4E0F75A24C3AAAAE41D3 /* Toast+UIView.h */,
+				AC1B92A512DF49FE931691B2 /* Toast.h */,
 			);
 			name = Plugins;
 			path = Nerdy.FM/Plugins;
@@ -551,6 +565,8 @@
 				EB0894D8FA824981BE22D3E5 /* RemoteControls.m in Sources */,
 				0CC4F0194A9F4F11ABC3D167 /* CDVConnection.m in Sources */,
 				2C5F992F0ED44BD4945C63B1 /* CDVReachability.m in Sources */,
+				B501DD5FDC654C4896C88EF3 /* Toast+UIView.m in Sources */,
+				A671C18E292F46FAAF606304 /* Toast.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
