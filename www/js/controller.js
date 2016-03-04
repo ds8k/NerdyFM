@@ -319,6 +319,10 @@ angular.module('nerdyfm.controller', [])
                 //If the song is different then change it
                 if ($rootScope.song !== data.data[0].song) {
                     $rootScope.song = data.data[0].song;
+                    if (data.data[0].track.imageurl.indexOf('nocover') > -1) {
+                        data.data[0].track.imageurl = ($rootScope.operatingSystem === 'iOS' ? cordova.file.applicationDirectory + 'www/' : '') + 'img/logo.jpg';
+                    }
+
                     $rootScope.track = data.data[0].track;
                     $rootScope.track.isPlaying = true;
                     $rootScope.setTrackClass();
