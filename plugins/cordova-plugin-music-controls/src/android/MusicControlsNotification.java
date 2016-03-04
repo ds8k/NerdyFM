@@ -80,9 +80,7 @@ public class MusicControlsNotification {
 	// get Local image
 	private Bitmap getBitmapFromLocal(String localURL){
 		try {
-			Uri uri = Uri.parse(localURL);
-			File file = new File(uri.getPath());
-			FileInputStream fileStream = new FileInputStream(file);
+			InputStream fileStream = cordovaActivity.getAssets().open("www/" + localURL);
 			BufferedInputStream buf = new BufferedInputStream(fileStream);
 			Bitmap myBitmap = BitmapFactory.decodeStream(buf);
 			buf.close();
