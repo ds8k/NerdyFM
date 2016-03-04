@@ -188,7 +188,7 @@ angular.module('nerdyfm.controller', [])
 
     //Set track class
     $rootScope.setTrackClass = function() {
-        $rootScope.trackClass = $rootScope.track.imageurl === '' ? 'playorload' : 'cc_streaminfo';
+        $rootScope.trackClass = $rootScope.track.imageurl !== '' ? 'cc_streaminfo' : 'playorload';
     };
     
     //Function for the button. Should be self-explanatory
@@ -221,7 +221,8 @@ angular.module('nerdyfm.controller', [])
             artist: '',
             title: 'Loading...',
             album: '',
-            imageurl: ''
+            imageurl: '',
+            isPlaying: false
         };
 
         $rootScope.audio.addEventListener('loadeddata', function(e) {
@@ -253,44 +254,22 @@ angular.module('nerdyfm.controller', [])
             console.log(e);
         }
 
-        $rootScope.audio.pause(); //Pause the song
-        $rootScope.audio.src = ''; //Remove the source (stops the streaming)
-
-        try {
-            if ($rootScope.operatingSystem === 'Android') {
-                window.MusicControls.create({
-                    track: 'Nerdy.FM',
-                    artist: 'Click Play!',
-                    cover: 'http://i.imgur.com/LIY1DEX.png',
-                    isPlaying: false,
-                    dismissable: true,
-                    hasPrev: false,
-                    hasNext: false,
-                    hasClose: true
-                });
-            } else {
-                window.remoteControls.updateMetas(function(success) {
-                    console.log(success);
-                }, function(fail){
-                    console.log(fail);
-                }, ['Click Play!', 'Nerdy.FM', '', 'http://i.imgur.com/LIY1DEX.png', 0, 0]);
-            }
-        } catch (e) {
-            console.log(e);
-        }
-
-        $interval.cancel($rootScope.stop); //Cancel the interval
-        $rootScope.stop = undefined; //Set interval object to undefined
-
         //Reset the track object
         $rootScope.track = {
-            artist: '',
-            title: 'Click play!',
+            artist: 'Click Play!',
+            title: 'Nerdy.FM',
             album: '',
-            imageurl: ''
+            imageurl: ($rootScope.operatingSystem === 'iOS' ? cordova.file.applicationDirectory + 'www/' : '') + 'img/logo.jpg',
+            isPlaying: false
         };
 
         $rootScope.song = ''; //Reset song variable
+
+        $rootScope.audio.pause(); //Pause the song
+        $rootScope.audio.src = ''; //Remove the source (stops the streaming)
+        $interval.cancel($rootScope.stop); //Cancel the interval
+        $rootScope.stop = undefined; //Set interval object to undefined
+        $rootScope.updateTracks();
     };
 
     $rootScope.onError = function(state) {
@@ -299,14 +278,16 @@ angular.module('nerdyfm.controller', [])
                 artist: '',
                 title: 'No Internet Connection!',
                 album: '',
-                imageurl: 'http://i.imgur.com/LIY1DEX.png'
+                imageurl: 'img/logo.jpg',
+                isPlaying: false
             };    
         } else {
             $rootScope.track = {
                 artist: '',
                 title: 'An error occurred! Try again?',
                 album: '',
-                imageurl: 'http://i.imgur.com/LIY1DEX.png'
+                imageurl: 'img/logo.jpg',
+                isPlaying: false
             };
         }
 
@@ -338,7 +319,12 @@ angular.module('nerdyfm.controller', [])
                 //If the song is different then change it
                 if ($rootScope.song !== data.data[0].song) {
                     $rootScope.song = data.data[0].song;
+                    if (data.data[0].track.imageurl.indexOf('nocover') > -1) {
+                        data.data[0].track.imageurl = ($rootScope.operatingSystem === 'iOS' ? cordova.file.applicationDirectory + 'www/' : '') + 'img/logo.jpg';
+                    }
+
                     $rootScope.track = data.data[0].track;
+                    $rootScope.track.isPlaying = true;
                     $rootScope.setTrackClass();
                     $rootScope.getRecent();
                     $rootScope.updateTracks();
@@ -382,7 +368,7 @@ angular.module('nerdyfm.controller', [])
                     track: $rootScope.track.title,
                     artist: $rootScope.track.artist,
                     cover: $rootScope.track.imageurl,
-                    isPlaying: true,
+                    isPlaying: $rootScope.track.isPlaying,
                     dismissable: true,
                     hasPrev: false,
                     hasNext: false,
