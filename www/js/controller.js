@@ -365,7 +365,7 @@ angular.module('nerdyfm.controller', [])
                             break;
                     }
                 };
-                window.MusicControls.destory();
+
                 window.MusicControls.create({
                     track: $rootScope.track.title,
                     artist: $rootScope.track.artist,
